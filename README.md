@@ -25,8 +25,8 @@
 
 **İndir ve çalıştır:**
 
-1. [Son sürümü indir](https://xn--mdoluturucusu-mtc.okaser.com:8080/downloads/MDOlusturucu_v1.2_Setup.exe)
-2. `MDOlusturucu_v1.2_Setup.exe` dosyasını çalıştırın
+1. [Son sürümü indir](https://xn--mdoluturucusu-mtc.okaser.com:8080/downloads/MDOlusturucu_v1.3_Setup.exe)
+2. `MDOlusturucu_v1.3_Setup.exe` dosyasını çalıştırın
 3. Kurulum sırasında sistem diliniz otomatik algılanır
 
 ## Kaynaktan Derleme
@@ -36,7 +36,7 @@ Gereksinimler: **.NET 8 SDK**, **Inno Setup 6**
 ```powershell
 dotnet publish -c Release -r win-x64 --self-contained true `
   -p:PublishSingleFile=true -p:PublishReadyToRun=true `
-  -o publish/v1.2
+  -o publish/v1.3
 
 & "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe" setup.iss
 ```

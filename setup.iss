@@ -1,9 +1,9 @@
 #define MyAppName      "MD Oluşturucu"
-#define MyAppVersion   "1.2"
+#define MyAppVersion   "1.3"
 #define MyAppPublisher "Mete Esperart"
 #define MyAppCompany   "OKASER"
 #define MyAppExeName   "MDOlusturucu.exe"
-#define SourceDir      "publish\v1.2"
+#define SourceDir      "publish\v1.3"
 #define DemoDir        "Demo"
 
 [Setup]
@@ -15,7 +15,7 @@ AppPublisherURL=https://okaser.com
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputDir=publish\installer
-OutputBaseFilename=MDOlusturucu_v1.2_Setup
+OutputBaseFilename=MDOlusturucu_v1.3_Setup
 SetupIconFile=Resources\app.ico
 Compression=lzma2
 SolidCompression=yes
