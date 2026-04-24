@@ -1,4 +1,4 @@
-# MD Oluşturucusu
+# MD Oluşturucu
 
 **.NET 8 WPF** tabanlı, hafif ve hızlı bir Markdown editörü. Gerçek zamanlı önizleme, söz dizimi vurgulama ve HTML dışa aktarma desteğiyle masaüstünde kesintisiz yazı deneyimi sunar.
 
