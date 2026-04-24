@@ -1,5 +1,10 @@
 # Değişiklik Geçmişi
 
+## [1.4] — 2026-04-24
+- Uygulama ikonu arka planı transparan yapıldı (kare görünüm giderildi)
+- Varsayılan MD dosyaları dizini Program Files'dan Documents\MD Oluşturucu'ya taşındı (UAC sorunu giderildi)
+- Demo dosyaları kurulumda kullanıcının Documents\MD Oluşturucu klasörüne kopyalanıyor
+
 ## [1.3] — 2026-04-24
 - Dil ComboBox görünüm hatası düzeltildi (LanguageItem.ToString() yerine DisplayName gösteriliyor)
 - HTML'e Çevir: Program Files erişim hatası giderildi, SaveFileDialog ile konum seçimi eklendi

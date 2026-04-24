@@ -1,9 +1,9 @@
 #define MyAppName      "MD Oluşturucu"
-#define MyAppVersion   "1.3"
+#define MyAppVersion   "1.4"
 #define MyAppPublisher "Mete Esperart"
 #define MyAppCompany   "OKASER"
 #define MyAppExeName   "MDOlusturucu.exe"
-#define SourceDir      "publish\v1.3"
+#define SourceDir      "publish\v1.4"
 #define DemoDir        "Demo"
 
 [Setup]
@@ -15,7 +15,7 @@ AppPublisherURL=https://okaser.com
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputDir=publish\installer
-OutputBaseFilename=MDOlusturucu_v1.3_Setup
+OutputBaseFilename=MDOlusturucu_v1.4_Setup
 SetupIconFile=Resources\app.ico
 Compression=lzma2
 SolidCompression=yes
@@ -46,10 +46,10 @@ Source: "{#SourceDir}\PresentationNative_cor3.dll"; DestDir: "{app}"; Flags: ign
 Source: "{#SourceDir}\vcruntime140_cor3.dll";    DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\wpfgfx_cor3.dll";          DestDir: "{app}"; Flags: ignoreversion
 
-; Demo Markdown dosyaları
-Source: "{#DemoDir}\Hoş Geldiniz.md";     DestDir: "{app}\MD Dosyaları"; Flags: ignoreversion
-Source: "{#DemoDir}\Markdown Rehberi.md"; DestDir: "{app}\MD Dosyaları"; Flags: ignoreversion
-Source: "{#DemoDir}\Örnek Belge.md";      DestDir: "{app}\MD Dosyaları"; Flags: ignoreversion
+; Demo Markdown dosyaları (Documents\MD Oluşturucu)
+Source: "{#DemoDir}\Hoş Geldiniz.md";     DestDir: "{userdocs}\MD Oluşturucu"; Flags: ignoreversion onlyifdoesntexist
+Source: "{#DemoDir}\Markdown Rehberi.md"; DestDir: "{userdocs}\MD Oluşturucu"; Flags: ignoreversion onlyifdoesntexist
+Source: "{#DemoDir}\Örnek Belge.md";      DestDir: "{userdocs}\MD Oluşturucu"; Flags: ignoreversion onlyifdoesntexist
 
 [Icons]
 Name: "{group}\{#MyAppName}";              Filename: "{app}\{#MyAppExeName}"
