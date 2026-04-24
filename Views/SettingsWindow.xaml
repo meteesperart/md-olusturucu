@@ -138,8 +138,14 @@
         <StackPanel Grid.Row="6">
             <TextBlock Text="{DynamicResource settings_language}" Style="{StaticResource LabelStyle}"/>
             <ComboBox ItemsSource="{Binding AvailableLanguages}"
-                      SelectedItem="{Binding SelectedLanguage}"
-                      DisplayMemberPath="DisplayName"/>
+                      SelectedItem="{Binding SelectedLanguage}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding DisplayName}"
+                                   Foreground="{DynamicResource PrimaryText}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
 
         <!-- Butonlar -->

@@ -284,12 +284,20 @@ public partial class MainWindow : Window
             return;
         }
 
+        var dlg = new Microsoft.Win32.SaveFileDialog
+        {
+            FileName   = Path.GetFileNameWithoutExtension(_vm.SelectedFile.Name),
+            DefaultExt = ".html",
+            Filter     = "HTML dosyası|*.html"
+        };
+
+        if (dlg.ShowDialog() != true) return;
+
         try
         {
-            var htmlPath = Path.ChangeExtension(_vm.SelectedFile.Path, ".html");
-            var html     = GenerateExportHtml(_vm.SelectedFile.Content, _vm.IsDarkTheme);
-            File.WriteAllText(htmlPath, html, Encoding.UTF8);
-            _vm.StatusMessage = $"{L.Get("export_success")} {Path.GetFileName(htmlPath)}";
+            var html = GenerateExportHtml(_vm.SelectedFile.Content, _vm.IsDarkTheme);
+            File.WriteAllText(dlg.FileName, html, Encoding.UTF8);
+            _vm.StatusMessage = $"{L.Get("export_success")} {Path.GetFileName(dlg.FileName)}";
         }
         catch (Exception ex)
         {
