@@ -3,6 +3,7 @@
 ## [1.3] — 2026-04-24
 - Dil ComboBox görünüm hatası düzeltildi (LanguageItem.ToString() yerine DisplayName gösteriliyor)
 - HTML'e Çevir: Program Files erişim hatası giderildi, SaveFileDialog ile konum seçimi eklendi
+- HTML'e Çevir: SaveFileDialog başlangıç dizini otomatik belirleniyor (MD klasörü yazılabilirse orası, değilse Belgeler)
 
 ## [1.2] — 2026-04-24
 - HTML'e Çevir butonu eklendi (tema uyumlu Catppuccin CSS ile dışa aktarma)
