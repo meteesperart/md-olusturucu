@@ -1,4 +1,4 @@
-# MD Oluşturucu
+# MD Oluşturucusu
 
 **.NET 8 WPF** tabanlı, hafif ve hızlı bir Markdown editörü. Gerçek zamanlı önizleme, söz dizimi vurgulama ve HTML dışa aktarma desteğiyle masaüstünde kesintisiz yazı deneyimi sunar.
 
@@ -16,16 +16,10 @@
 - **Dosya yönetimi** — Oluştur, yeniden adlandır, içe aktar, sil
 - **Özelleştirilebilir editör** — Font ailesi ve renk seçimi
 
-## Ekran Görüntüleri
-
-| Koyu Tema | Açık Tema |
-|-----------|-----------|
-| Catppuccin Mocha | Catppuccin Latte |
-
 ## Gereksinimler
 
 - Windows 10/11 (x64)
-- .NET 8 Runtime *(installer self-contained — ayrıca kurulum gerekmez)*
+- .NET 8 Runtime *(installer içinde paketlidir — ayrıca yüklemeniz gerekmez)*
 
 ## Kurulum
 
@@ -37,15 +31,14 @@
 
 ## Kaynaktan Derleme
 
-```bash
-# Bağımlılıklar: .NET 8 SDK, Inno Setup 6
+Gereksinimler: **.NET 8 SDK**, **Inno Setup 6**
 
+```powershell
 dotnet publish -c Release -r win-x64 --self-contained true `
   -p:PublishSingleFile=true -p:PublishReadyToRun=true `
   -o publish/v1.0
 
-# Installer oluştur
-& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" setup.iss
+& "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe" setup.iss
 ```
 
 ## Kullanılan Teknolojiler
@@ -58,7 +51,7 @@ dotnet publish -c Release -r win-x64 --self-contained true `
 
 ## Dil Desteği
 
-Uygulama arayüzü 6 dilde mevcuttur. Dil, kurulum sırasında sistem ayarınıza göre otomatik seçilir; Ayarlar menüsünden değiştirilebilir.
+Uygulama arayüzü 6 dilde mevcuttur. Dil, kurulum sırasında sistem ayarınıza göre otomatik seçilir; Ayarlar menüsünden sonradan değiştirilebilir.
 
 | Kod | Dil |
 |-----|-----|
