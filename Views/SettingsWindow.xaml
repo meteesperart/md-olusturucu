@@ -1,0 +1,158 @@
+<Window x:Class="MDOlusturucu.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource settings_title}"
+        Width="520" Height="420"
+        MinWidth="420" MinHeight="380"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="{DynamicResource WindowBackground}">
+
+    <Window.Resources>
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource SecondaryText}"/>
+            <Setter Property="FontSize"   Value="12"/>
+            <Setter Property="Margin"     Value="0,0,0,5"/>
+        </Style>
+
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="Background"   Value="{DynamicResource SidebarBackground}"/>
+            <Setter Property="Foreground"   Value="{DynamicResource PrimaryText}"/>
+            <Setter Property="BorderBrush"  Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding"      Value="8,6"/>
+            <Setter Property="FontSize"     Value="13"/>
+        </Style>
+
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Background"  Value="{DynamicResource ButtonBackground}"/>
+            <Setter Property="Foreground"  Value="{DynamicResource PrimaryText}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding"     Value="16,8"/>
+            <Setter Property="FontSize"    Value="13"/>
+            <Setter Property="Cursor"      Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource ButtonHoverBackground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource ActionButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource AccentColor}"/>
+            <Setter Property="Foreground" Value="#1E1E2E"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- MD Klasörü -->
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="{DynamicResource settings_md_folder}" Style="{StaticResource LabelStyle}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"
+                         Text="{Binding MarkdownDirectory, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource InputStyle}"/>
+                <Button Grid.Column="2"
+                        Content="{DynamicResource settings_browse}"
+                        Style="{StaticResource ActionButtonStyle}"
+                        Command="{Binding BrowseFolderCommand}"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Yazı Biçimi -->
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="{DynamicResource settings_font}" Style="{StaticResource LabelStyle}"/>
+            <ComboBox ItemsSource="{Binding AvailableFonts}"
+                      SelectedItem="{Binding SelectedFontFamily}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"
+                                   FontFamily="{Binding}"
+                                   Foreground="{DynamicResource PrimaryText}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Yazı Biçimi Rengi -->
+        <StackPanel Grid.Row="4">
+            <TextBlock Text="{DynamicResource settings_font_color}" Style="{StaticResource LabelStyle}"/>
+            <ComboBox ItemsSource="{Binding AvailableColors}"
+                      SelectedValue="{Binding SelectedFontColor}"
+                      SelectedValuePath="Hex">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="16" Height="16"
+                                    CornerRadius="3"
+                                    Margin="0,0,8,0"
+                                    Background="{Binding Hex}">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Hex}" Value="">
+                                                <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                            <TextBlock Text="{Binding Name}"
+                                       Foreground="{DynamicResource PrimaryText}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Dil -->
+        <StackPanel Grid.Row="6">
+            <TextBlock Text="{DynamicResource settings_language}" Style="{StaticResource LabelStyle}"/>
+            <ComboBox ItemsSource="{Binding AvailableLanguages}"
+                      SelectedItem="{Binding SelectedLanguage}"
+                      DisplayMemberPath="DisplayName"/>
+        </StackPanel>
+
+        <!-- Butonlar -->
+        <StackPanel Grid.Row="8"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="{DynamicResource settings_cancel}"
+                    Style="{StaticResource ActionButtonStyle}"
+                    Command="{Binding CancelCommand}"
+                    Margin="0,0,8,0"/>
+            <Button Content="{DynamicResource settings_save}"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding SaveCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>

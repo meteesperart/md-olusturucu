@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SyntaxDefinition name="Markdown"
+    xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+
+  <!-- Catppuccin Latte -->
+  <Color name="H1"        foreground="#1E66F5" fontWeight="bold"              fontSize="18"/>
+  <Color name="H2"        foreground="#04A5E5" fontWeight="bold"              fontSize="16"/>
+  <Color name="H3"        foreground="#179299" fontWeight="bold"              fontSize="15"/>
+  <Color name="H456"      foreground="#179299"/>
+  <Color name="Bold"      foreground="#DF8E1D" fontWeight="bold"/>
+  <Color name="Italic"    foreground="#EA76CB" fontStyle="italic"/>
+  <Color name="BoldItalic" foreground="#FE640B" fontWeight="bold" fontStyle="italic"/>
+  <Color name="Strike"    foreground="#9CA0B0"/>
+  <Color name="CodeBlock" foreground="#40A02B" background="#E6E9EF"/>
+  <Color name="Code"      foreground="#40A02B" background="#EFF1F5"/>
+  <Color name="Link"      foreground="#1E66F5"/>
+  <Color name="Image"     foreground="#8839EF"/>
+  <Color name="Quote"     foreground="#7C7F93" fontStyle="italic"/>
+  <Color name="HRule"     foreground="#BCC0CC"/>
+  <Color name="ListMark"  foreground="#FE640B"/>
+  <Color name="HtmlTag"   foreground="#D20F39"/>
+
+  <RuleSet>
+
+    <!-- Kod bloğu: ``` ... ``` (çok satır) -->
+    <Span color="CodeBlock" multiline="true">
+      <Begin>```</Begin>
+      <End>```</End>
+    </Span>
+
+    <!-- Satır içi kod: `...` -->
+    <Span color="Code" multiline="false">
+      <Begin>`</Begin>
+      <End>`</End>
+    </Span>
+
+    <!-- Kalın + İtalik (önce match etmeli) -->
+    <Rule color="BoldItalic">\*\*\*[^\s*][^*]*\*\*\*</Rule>
+    <Rule color="BoldItalic">___[^\s_][^_]*___</Rule>
+
+    <!-- Kalın -->
+    <Rule color="Bold">\*\*[^\s*][^*]*\*\*</Rule>
+    <Rule color="Bold">__[^\s_][^_]*__</Rule>
+
+    <!-- İtalik -->
+    <Rule color="Italic">\*[^\s*][^*]*\*</Rule>
+    <Rule color="Italic">_[^\s_][^_]*_</Rule>
+
+    <!-- Üstü çizili -->
+    <Rule color="Strike">~~[^~]+~~</Rule>
+
+    <!-- Resim (linkten önce) -->
+    <Rule color="Image">!\[[^\]]*\]\([^)]*\)</Rule>
+
+    <!-- Bağlantı -->
+    <Rule color="Link">\[[^\]]+\]\([^)]*\)</Rule>
+    <Rule color="Link">\[[^\]]+\]\[[^\]]*\]</Rule>
+    <Rule color="Link">&lt;https?://[^\s&gt;]+&gt;</Rule>
+
+    <!-- Başlıklar: uzundan kısaya sıralanır -->
+    <Rule color="H456">###### .+</Rule>
+    <Rule color="H456">##### .+</Rule>
+    <Rule color="H456">#### .+</Rule>
+    <Rule color="H3">### .+</Rule>
+    <Rule color="H2">## .+</Rule>
+    <Rule color="H1"># .+</Rule>
+
+    <!-- Alıntı -->
+    <Rule color="Quote">&gt;.+</Rule>
+
+    <!-- Yatay çizgi -->
+    <Rule color="HRule">---+</Rule>
+    <Rule color="HRule">\*\*\*+</Rule>
+
+    <!-- Liste işaretçileri -->
+    <Rule color="ListMark">\s[-*+] </Rule>
+    <Rule color="ListMark">\s\d+\. </Rule>
+    <Rule color="ListMark">^[-*+] </Rule>
+    <Rule color="ListMark">^\d+\. </Rule>
+
+    <!-- HTML etiketleri -->
+    <Rule color="HtmlTag">&lt;/?[a-zA-Z][^&gt;]*/?&gt;</Rule>
+
+  </RuleSet>
+</SyntaxDefinition>

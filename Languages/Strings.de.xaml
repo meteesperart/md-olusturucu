@@ -1,0 +1,80 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- Symbolleisten-Schaltflächen -->
+    <sys:String x:Key="toolbar_new">＋ Neu</sys:String>
+    <sys:String x:Key="toolbar_open">📂 Öffnen</sys:String>
+    <sys:String x:Key="toolbar_save">💾 Speichern</sys:String>
+    <sys:String x:Key="toolbar_delete">🗑 Löschen</sys:String>
+    <sys:String x:Key="toolbar_theme">🌙 Thema</sys:String>
+    <sys:String x:Key="toolbar_settings">⚙ Einstellungen</sys:String>
+    <sys:String x:Key="toolbar_export_html">🌐 HTML exportieren</sys:String>
+    <sys:String x:Key="toolbar_preview_on">⊡ Vorschau</sys:String>
+    <sys:String x:Key="toolbar_preview_off">⊞ Vorschau</sys:String>
+    <sys:String x:Key="toolbar_about">Über</sys:String>
+
+    <!-- QuickInfos -->
+    <sys:String x:Key="tooltip_new">Neue Datei (Ctrl+N)</sys:String>
+    <sys:String x:Key="tooltip_open">Datei öffnen (Ctrl+O)</sys:String>
+    <sys:String x:Key="tooltip_save">Speichern (Ctrl+S)</sys:String>
+    <sys:String x:Key="tooltip_preview_toggle">Vorschau ein-/ausblenden</sys:String>
+    <sys:String x:Key="tooltip_hide_preview">Vorschau ausblenden</sys:String>
+
+    <!-- Beschriftungen -->
+    <sys:String x:Key="lbl_files_header">DATEIEN</sys:String>
+    <sys:String x:Key="lbl_no_file">Wählen Sie eine Datei im linken Panel zum Bearbeiten</sys:String>
+    <sys:String x:Key="lbl_preview_header">VORSCHAU</sys:String>
+    <sys:String x:Key="lbl_shortcuts">Ctrl+S Speichern  ·  Ctrl+N Neu  ·  Ctrl+O Öffnen</sys:String>
+
+    <!-- Einstellungsfenster -->
+    <sys:String x:Key="settings_title">Einstellungen</sys:String>
+    <sys:String x:Key="settings_md_folder">MD-Ordner:</sys:String>
+    <sys:String x:Key="settings_font">Schriftart:</sys:String>
+    <sys:String x:Key="settings_font_color">Schriftfarbe:</sys:String>
+    <sys:String x:Key="settings_language">Sprache:</sys:String>
+    <sys:String x:Key="settings_browse">Durchsuchen</sys:String>
+    <sys:String x:Key="settings_cancel">Abbrechen</sys:String>
+    <sys:String x:Key="settings_save">Speichern</sys:String>
+    <sys:String x:Key="settings_folder_dialog">MD-Ordner auswählen</sys:String>
+    <sys:String x:Key="restart_required">Starten Sie die Anwendung neu, um die Sprachänderung anzuwenden.</sys:String>
+
+    <!-- Über-Fenster -->
+    <sys:String x:Key="about_title">Über</sys:String>
+    <sys:String x:Key="about_version_label">Version</sys:String>
+    <sys:String x:Key="about_developer_label">Entwickler</sys:String>
+    <sys:String x:Key="about_company_label">Unternehmen</sys:String>
+    <sys:String x:Key="about_ok">OK</sys:String>
+
+    <!-- Statusleiste -->
+    <sys:String x:Key="status_default">MD Ersteller</sys:String>
+    <sys:String x:Key="status_unsaved">nicht gespeicherte Änderungen</sys:String>
+    <sys:String x:Key="status_saved">gespeichert</sys:String>
+    <sys:String x:Key="status_new_file">Neue Datei</sys:String>
+
+    <!-- Dateidialoge -->
+    <sys:String x:Key="dialog_filter_md">Markdown-Dateien (*.md)|*.md|Alle Dateien (*.*)|*.*</sys:String>
+    <sys:String x:Key="dialog_title_open">Markdown-Datei öffnen</sys:String>
+    <sys:String x:Key="menu_desktop_shortcut">Desktop-Verknüpfung erstellen</sys:String>
+
+    <!-- HTML-Export -->
+    <sys:String x:Key="export_no_file">Bitte zuerst eine Datei auswählen.</sys:String>
+    <sys:String x:Key="export_success">HTML-Datei erstellt:</sys:String>
+    <sys:String x:Key="export_error">HTML-Erstellung fehlgeschlagen:</sys:String>
+
+    <!-- Farboptionen -->
+    <sys:String x:Key="color_default">Standard (Thema)</sys:String>
+    <sys:String x:Key="color_white">Weiß</sys:String>
+    <sys:String x:Key="color_light_gray">Hellgrau</sys:String>
+    <sys:String x:Key="color_yellow">Gelb</sys:String>
+    <sys:String x:Key="color_orange">Orange</sys:String>
+    <sys:String x:Key="color_red">Rot</sys:String>
+    <sys:String x:Key="color_pink">Rosa</sys:String>
+    <sys:String x:Key="color_green">Grün</sys:String>
+    <sys:String x:Key="color_blue">Blau</sys:String>
+    <sys:String x:Key="color_light_blue">Hellblau</sys:String>
+    <sys:String x:Key="color_purple">Lila</sys:String>
+    <sys:String x:Key="color_black">Schwarz</sys:String>
+    <sys:String x:Key="color_dark_gray">Dunkelgrau</sys:String>
+
+</ResourceDictionary>

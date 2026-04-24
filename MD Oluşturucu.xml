@@ -1,0 +1,29 @@
+<context>
+.NET 8 WPF kullanarak modern bir Markdown (.md) Editörü geliştiriyoruz. 
+Uygulama adı: "MD Oluşturucu".
+Tasarım dili: Windows 11 Fluent Design.
+</context>
+
+<tech_stack>
+- Framework: .NET 8 / WPF
+- Pattern: MVVM (CommunityToolkit.Mvvm)
+- Dependency Injection: Microsoft.Extensions.DependencyInjection
+- Markdown Rendering: Markdig (veya TextBox tabanlı düz düzenleyici)
+</tech_stack>
+
+<core_features>
+1. Sidebar: Belirlenen dizindeki .md dosyalarını listeler (Tree View veya ListBox).
+2. Editor: Sağ panelde içerik düzenleme ve kaydetme.
+3. Import Logic: Dizin dışından açılan dosyalar önce ana dizine kopyalanır, sonra yüklenir.
+4. UI: GridSplitter ile genişletilebilir panel yapısı.
+5. Themes: Light/Dark mode ve özelleştirilebilir yazı tipi renkleri (ResourceDictionary üzerinden).
+</core_features>
+
+<instruction>
+Lütfen projeyi şu sırayla inşa et:
+1. Proje dosyası (.csproj) ve NuGet paketleri.
+2. FileService (Dosya kopyalama, okuma, yazma mantığı).
+3. MainViewModel (Dosya listesi yönetimi ve seçilen dosyanın yüklenmesi).
+4. MainWindow.xaml (GridSplitter, Side Panel ve Editor tasarımı).
+5. ThemeManager (Renk ve Font yönetimi).
+</instruction>

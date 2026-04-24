@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SyntaxDefinition name="Markdown"
+    xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+
+  <Color name="H1"         foreground="#89B4FA" fontWeight="bold"   fontSize="18"/>
+  <Color name="H2"         foreground="#89B4FA" fontWeight="bold"   fontSize="16"/>
+  <Color name="H3"         foreground="#74C7EC" fontWeight="bold"   fontSize="14"/>
+  <Color name="H456"       foreground="#74C7EC"/>
+  <Color name="Bold"       foreground="#F9E2AF" fontWeight="bold"/>
+  <Color name="Italic"     foreground="#F5C2E7" fontStyle="italic"/>
+  <Color name="BoldItalic" foreground="#FAB387" fontWeight="bold" fontStyle="italic"/>
+  <Color name="Code"       foreground="#A6E3A1"/>
+  <Color name="Link"       foreground="#89DCEB"/>
+  <Color name="Image"      foreground="#CBA6F7"/>
+  <Color name="Quote"      foreground="#9399B2" fontStyle="italic"/>
+  <Color name="HRule"      foreground="#585B70"/>
+  <Color name="List"       foreground="#FAB387"/>
+  <Color name="HtmlTag"    foreground="#F38BA8"/>
+
+  <RuleSet>
+
+    <!-- Kod bloğu (``` ... ```) — multiline span -->
+    <Span color="Code" multiline="true">
+      <Begin>```</Begin>
+      <End>```</End>
+    </Span>
+
+    <!-- Satır içi kod (`...`) -->
+    <Span color="Code" multiline="false">
+      <Begin>`</Begin>
+      <End>`</End>
+    </Span>
+
+    <!-- Kalın + italik ***...*** -->
+    <Rule color="BoldItalic">\*\*\*[^*]+\*\*\*</Rule>
+    <Rule color="BoldItalic">___[^_]+___</Rule>
+
+    <!-- Kalın **...** -->
+    <Rule color="Bold">\*\*[^*]+\*\*</Rule>
+    <Rule color="Bold">__[^_]+__</Rule>
+
+    <!-- İtalik *...* -->
+    <Rule color="Italic">\*[^*\s][^*]*\*</Rule>
+    <Rule color="Italic">_[^_\s][^_]*_</Rule>
+
+    <!-- Resim ![alt](url) — linkten önce gelmeli -->
+    <Rule color="Image">!\[[^\]]*\]\([^)]*\)</Rule>
+
+    <!-- Bağlantı [text](url) -->
+    <Rule color="Link">\[[^\]]+\]\([^)]*\)</Rule>
+    <Rule color="Link">\[[^\]]+\]\[[^\]]*\]</Rule>
+
+    <!-- H1: # ile başlayan satır -->
+    <Rule color="H1"># [^\r\n]+</Rule>
+
+    <!-- H2: ## ile başlayan satır -->
+    <Rule color="H2">## [^\r\n]+</Rule>
+
+    <!-- H3: ### ile başlayan satır -->
+    <Rule color="H3">### [^\r\n]+</Rule>
+
+    <!-- H4-H6 -->
+    <Rule color="H456">#{4,6} [^\r\n]+</Rule>
+
+    <!-- Alıntı: > ile başlayan satır -->
+    <Rule color="Quote">&gt; [^\r\n]*</Rule>
+
+    <!-- Yatay çizgi: --- veya *** veya ___ (tek başına satırda) -->
+    <Rule color="HRule">^---+$</Rule>
+    <Rule color="HRule">^\*\*\*+$</Rule>
+    <Rule color="HRule">^___+$</Rule>
+
+    <!-- Liste işaretçileri -->
+    <Rule color="List">^\s*[-*+] </Rule>
+    <Rule color="List">^\s*\d+\. </Rule>
+
+    <!-- HTML etiketleri -->
+    <Rule color="HtmlTag">&lt;/?[a-zA-Z][^&gt;]*&gt;</Rule>
+
+  </RuleSet>
+</SyntaxDefinition>

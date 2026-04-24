@@ -1,0 +1,18 @@
+# Build çıktıları
+bin/
+obj/
+publish/
+
+# Kullanıcıya özel Claude Code dosyaları
+.claude/
+
+# IDE
+.vs/
+*.user
+
+# Geçici / log
+*.log
+session_*.html
+
+# Inno Setup çıktı
+publish/installer/

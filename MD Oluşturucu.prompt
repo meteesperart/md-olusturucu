@@ -1,0 +1,16 @@
+Proje Klasörü: C:\Users\Mete\𐰋𐰏𐰠𐰼(1)\Projeler\MD Oluşturucu
+"Senden .NET 8 ve WPF kullanarak modern bir Markdown Editor geliştirmeni istiyorum. Mimari olarak CommunityToolkit.Mvvm kütüphanesini kullanmalısın.
+📐 Mimari ve UI Yapısı
+Layout: Ana pencere Grid ile ikiye bölünmeli. Solda dosya listesi, sağda editör alanı olmalı. Arada GridSplitter bulunmalı.
+Navigation: Sol paneldeki bir dosyaya tıklandığında SelectedFile özelliği üzerinden sağ panel güncellenmeli.
+File Logic: Uygulama dizini dışından açılan dosyalar System.IO.File.Copy ile önce uygulama dizinine alınmalı, sonra listede gösterilmeli.
+🎨 Görünüm ve Temalandırma
+Temalar: Dark ve Light modları ResourceDictionary dosyalarında tanımlanmalı.
+Esneklik: Yazı tipi renkleri dinamik olarak DynamicResource üzerinden değiştirilebilmeli.
+Stil: Windows 11 estetiğine uygun, sade ve temiz bir arayüz.
+🛠️ Teknik Gereksinimler
+Model: FileModel (Ad, Yol, İçerik).
+Service: IFileService (Okuma, Yazma, Kopyalama işlemlerini yöneten interface).
+ViewModel: MainViewModel (ObservableCollection ve seçili dosya yönetimi).
+View: MainWindow.xaml (GridSplitter ve Binding yapıları).
+Lütfen önce projenin temel klasör yapısını ve FileService sınıfını oluşturarak başla."

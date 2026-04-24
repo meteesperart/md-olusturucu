@@ -1,0 +1,11 @@
+.md dosyaları oluşturma ve düzenleme uygulaması
+
+.md dosyaları oluşturmaya ve düzenlemeye yönelik bir uygulama: 
+Uygulama, ayarlanabilir bir dizin yapısına sahip olacak; başlatıldığında, 
+sol panelde bu dizindeki .md dosyaları yüklenecek ve sol paneldeki bir 
+dosya adına tıklandığında, ilgili dosya sağ panele yüklenecektir. Kullanıcı, 
+dosyayı düzenleyip kaydedebilir. Kullanıcı, söz konusu dizinin dışında bulunan 
+bir dosyayı açmak istediğinde, dosya öncelikle o dizine kopyalanacak ve 
+ardından sağ panelde açılacaktır. Sol panel sabit kalırken, sağ panel sağa 
+doğru genişletilebilir yapıda olacaktır. Uygulama, açık ve koyu mod seçeneklerine 
+sahip olmalı; ayrıca yazı tipi renkleri değiştirilebilir nitelikte olmalıdır.

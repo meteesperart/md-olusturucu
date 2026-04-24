@@ -1,0 +1,80 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- Araç çubuğu butonları -->
+    <sys:String x:Key="toolbar_new">＋ Yeni</sys:String>
+    <sys:String x:Key="toolbar_open">📂 Aç</sys:String>
+    <sys:String x:Key="toolbar_save">💾 Kaydet</sys:String>
+    <sys:String x:Key="toolbar_delete">🗑 Sil</sys:String>
+    <sys:String x:Key="toolbar_theme">🌙 Tema</sys:String>
+    <sys:String x:Key="toolbar_settings">⚙ Ayarlar</sys:String>
+    <sys:String x:Key="toolbar_export_html">🌐 HTML'e Çevir</sys:String>
+    <sys:String x:Key="toolbar_preview_on">⊡ Önizleme</sys:String>
+    <sys:String x:Key="toolbar_preview_off">⊞ Önizleme</sys:String>
+    <sys:String x:Key="toolbar_about">Hakkında</sys:String>
+
+    <!-- Araç ipuçları -->
+    <sys:String x:Key="tooltip_new">Yeni dosya (Ctrl+N)</sys:String>
+    <sys:String x:Key="tooltip_open">Dosya aç (Ctrl+O)</sys:String>
+    <sys:String x:Key="tooltip_save">Kaydet (Ctrl+S)</sys:String>
+    <sys:String x:Key="tooltip_preview_toggle">Önizlemeyi göster / gizle</sys:String>
+    <sys:String x:Key="tooltip_hide_preview">Önizlemeyi gizle</sys:String>
+
+    <!-- Etiketler -->
+    <sys:String x:Key="lbl_files_header">DOSYALAR</sys:String>
+    <sys:String x:Key="lbl_no_file">Düzenlemek için sol panelden bir dosya seçin</sys:String>
+    <sys:String x:Key="lbl_preview_header">ÖNİZLEME</sys:String>
+    <sys:String x:Key="lbl_shortcuts">Ctrl+S Kaydet  ·  Ctrl+N Yeni  ·  Ctrl+O Aç</sys:String>
+
+    <!-- Ayarlar penceresi -->
+    <sys:String x:Key="settings_title">Ayarlar</sys:String>
+    <sys:String x:Key="settings_md_folder">MD Klasörü:</sys:String>
+    <sys:String x:Key="settings_font">Yazı Biçimi:</sys:String>
+    <sys:String x:Key="settings_font_color">Yazı Biçimi Rengi:</sys:String>
+    <sys:String x:Key="settings_language">Dil:</sys:String>
+    <sys:String x:Key="settings_browse">Gözat</sys:String>
+    <sys:String x:Key="settings_cancel">İptal</sys:String>
+    <sys:String x:Key="settings_save">Kaydet</sys:String>
+    <sys:String x:Key="settings_folder_dialog">MD Klasörü Seç</sys:String>
+    <sys:String x:Key="restart_required">Dil değişikliğinin uygulanması için programı yeniden başlatın.</sys:String>
+
+    <!-- Hakkında penceresi -->
+    <sys:String x:Key="about_title">Hakkında</sys:String>
+    <sys:String x:Key="about_version_label">Versiyon</sys:String>
+    <sys:String x:Key="about_developer_label">Yapımcı</sys:String>
+    <sys:String x:Key="about_company_label">Firma</sys:String>
+    <sys:String x:Key="about_ok">Tamam</sys:String>
+
+    <!-- Durum çubuğu -->
+    <sys:String x:Key="status_default">MD Oluşturucu</sys:String>
+    <sys:String x:Key="status_unsaved">kaydedilmemiş değişiklikler</sys:String>
+    <sys:String x:Key="status_saved">kaydedildi</sys:String>
+    <sys:String x:Key="status_new_file">Yeni Dosya</sys:String>
+
+    <!-- Dosya diyalogları -->
+    <sys:String x:Key="dialog_filter_md">Markdown Dosyaları (*.md)|*.md|Tüm Dosyalar (*.*)|*.*</sys:String>
+    <sys:String x:Key="dialog_title_open">Markdown Dosyası Aç</sys:String>
+    <sys:String x:Key="menu_desktop_shortcut">Masaüstüne Kısayol Oluştur</sys:String>
+
+    <!-- HTML dışa aktarma -->
+    <sys:String x:Key="export_no_file">Önce bir dosya seçin.</sys:String>
+    <sys:String x:Key="export_success">HTML dosyası oluşturuldu:</sys:String>
+    <sys:String x:Key="export_error">HTML oluşturulamadı:</sys:String>
+
+    <!-- Renk seçenekleri -->
+    <sys:String x:Key="color_default">Varsayılan (Tema)</sys:String>
+    <sys:String x:Key="color_white">Beyaz</sys:String>
+    <sys:String x:Key="color_light_gray">Açık Gri</sys:String>
+    <sys:String x:Key="color_yellow">Sarı</sys:String>
+    <sys:String x:Key="color_orange">Turuncu</sys:String>
+    <sys:String x:Key="color_red">Kırmızı</sys:String>
+    <sys:String x:Key="color_pink">Pembe</sys:String>
+    <sys:String x:Key="color_green">Yeşil</sys:String>
+    <sys:String x:Key="color_blue">Mavi</sys:String>
+    <sys:String x:Key="color_light_blue">Açık Mavi</sys:String>
+    <sys:String x:Key="color_purple">Mor</sys:String>
+    <sys:String x:Key="color_black">Siyah</sys:String>
+    <sys:String x:Key="color_dark_gray">Koyu Gri</sys:String>
+
+</ResourceDictionary>

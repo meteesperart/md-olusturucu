@@ -1,0 +1,80 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- Кнопки панели инструментов -->
+    <sys:String x:Key="toolbar_new">＋ Создать</sys:String>
+    <sys:String x:Key="toolbar_open">📂 Открыть</sys:String>
+    <sys:String x:Key="toolbar_save">💾 Сохранить</sys:String>
+    <sys:String x:Key="toolbar_delete">🗑 Удалить</sys:String>
+    <sys:String x:Key="toolbar_theme">🌙 Тема</sys:String>
+    <sys:String x:Key="toolbar_settings">⚙ Настройки</sys:String>
+    <sys:String x:Key="toolbar_export_html">🌐 Экспорт HTML</sys:String>
+    <sys:String x:Key="toolbar_preview_on">⊡ Просмотр</sys:String>
+    <sys:String x:Key="toolbar_preview_off">⊞ Просмотр</sys:String>
+    <sys:String x:Key="toolbar_about">О программе</sys:String>
+
+    <!-- Подсказки -->
+    <sys:String x:Key="tooltip_new">Новый файл (Ctrl+N)</sys:String>
+    <sys:String x:Key="tooltip_open">Открыть файл (Ctrl+O)</sys:String>
+    <sys:String x:Key="tooltip_save">Сохранить (Ctrl+S)</sys:String>
+    <sys:String x:Key="tooltip_preview_toggle">Показать / скрыть просмотр</sys:String>
+    <sys:String x:Key="tooltip_hide_preview">Скрыть просмотр</sys:String>
+
+    <!-- Метки -->
+    <sys:String x:Key="lbl_files_header">ФАЙЛЫ</sys:String>
+    <sys:String x:Key="lbl_no_file">Выберите файл в левой панели для редактирования</sys:String>
+    <sys:String x:Key="lbl_preview_header">ПРОСМОТР</sys:String>
+    <sys:String x:Key="lbl_shortcuts">Ctrl+S Сохранить  ·  Ctrl+N Создать  ·  Ctrl+O Открыть</sys:String>
+
+    <!-- Окно настроек -->
+    <sys:String x:Key="settings_title">Настройки</sys:String>
+    <sys:String x:Key="settings_md_folder">Папка MD:</sys:String>
+    <sys:String x:Key="settings_font">Шрифт:</sys:String>
+    <sys:String x:Key="settings_font_color">Цвет шрифта:</sys:String>
+    <sys:String x:Key="settings_language">Язык:</sys:String>
+    <sys:String x:Key="settings_browse">Обзор</sys:String>
+    <sys:String x:Key="settings_cancel">Отмена</sys:String>
+    <sys:String x:Key="settings_save">Сохранить</sys:String>
+    <sys:String x:Key="settings_folder_dialog">Выбрать папку MD</sys:String>
+    <sys:String x:Key="restart_required">Перезапустите приложение для применения языка.</sys:String>
+
+    <!-- Окно «О программе» -->
+    <sys:String x:Key="about_title">О программе</sys:String>
+    <sys:String x:Key="about_version_label">Версия</sys:String>
+    <sys:String x:Key="about_developer_label">Разработчик</sys:String>
+    <sys:String x:Key="about_company_label">Компания</sys:String>
+    <sys:String x:Key="about_ok">ОК</sys:String>
+
+    <!-- Строка состояния -->
+    <sys:String x:Key="status_default">MD Редактор</sys:String>
+    <sys:String x:Key="status_unsaved">несохранённые изменения</sys:String>
+    <sys:String x:Key="status_saved">сохранено</sys:String>
+    <sys:String x:Key="status_new_file">Новый Файл</sys:String>
+
+    <!-- Диалоги файлов -->
+    <sys:String x:Key="dialog_filter_md">Файлы Markdown (*.md)|*.md|Все файлы (*.*)|*.*</sys:String>
+    <sys:String x:Key="dialog_title_open">Открыть файл Markdown</sys:String>
+    <sys:String x:Key="menu_desktop_shortcut">Создать ярлык на рабочем столе</sys:String>
+
+    <!-- Экспорт HTML -->
+    <sys:String x:Key="export_no_file">Пожалуйста, сначала выберите файл.</sys:String>
+    <sys:String x:Key="export_success">HTML-файл создан:</sys:String>
+    <sys:String x:Key="export_error">Не удалось создать HTML:</sys:String>
+
+    <!-- Варианты цвета -->
+    <sys:String x:Key="color_default">По умолчанию (Тема)</sys:String>
+    <sys:String x:Key="color_white">Белый</sys:String>
+    <sys:String x:Key="color_light_gray">Светло-серый</sys:String>
+    <sys:String x:Key="color_yellow">Жёлтый</sys:String>
+    <sys:String x:Key="color_orange">Оранжевый</sys:String>
+    <sys:String x:Key="color_red">Красный</sys:String>
+    <sys:String x:Key="color_pink">Розовый</sys:String>
+    <sys:String x:Key="color_green">Зелёный</sys:String>
+    <sys:String x:Key="color_blue">Синий</sys:String>
+    <sys:String x:Key="color_light_blue">Голубой</sys:String>
+    <sys:String x:Key="color_purple">Фиолетовый</sys:String>
+    <sys:String x:Key="color_black">Чёрный</sys:String>
+    <sys:String x:Key="color_dark_gray">Тёмно-серый</sys:String>
+
+</ResourceDictionary>
