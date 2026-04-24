@@ -16,10 +16,10 @@
     <Authors>Mete Esperart</Authors>
     <Copyright>© 2025 Mete Esperart</Copyright>
     <Description>Markdown editörü ve HTML dışa aktarıcı</Description>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.0.0</Version>
-    <InformationalVersion>1.0</InformationalVersion>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.2.0</Version>
+    <InformationalVersion>1.2</InformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
