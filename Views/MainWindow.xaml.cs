@@ -284,11 +284,17 @@ public partial class MainWindow : Window
             return;
         }
 
+        var mdDir   = Path.GetDirectoryName(_vm.SelectedFile.Path) ?? "";
+        var initDir = Directory.Exists(mdDir) && IsWritable(mdDir)
+            ? mdDir
+            : Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
         var dlg = new Microsoft.Win32.SaveFileDialog
         {
-            FileName   = Path.GetFileNameWithoutExtension(_vm.SelectedFile.Name),
-            DefaultExt = ".html",
-            Filter     = "HTML dosyası|*.html"
+            FileName         = Path.GetFileNameWithoutExtension(_vm.SelectedFile.Name),
+            DefaultExt       = ".html",
+            Filter           = "HTML dosyası|*.html",
+            InitialDirectory = initDir
         };
 
         if (dlg.ShowDialog() != true) return;
@@ -304,6 +310,17 @@ public partial class MainWindow : Window
             System.Windows.MessageBox.Show($"{L.Get("export_error")} {ex.Message}", L.Get("toolbar_export_html"),
                 System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
         }
+    }
+
+    private static bool IsWritable(string dir)
+    {
+        try
+        {
+            var test = Path.Combine(dir, Path.GetRandomFileName());
+            using var fs = File.Create(test, 1, FileOptions.DeleteOnClose);
+            return true;
+        }
+        catch { return false; }
     }
 
     private static string GenerateExportHtml(string markdown, bool isDark)
