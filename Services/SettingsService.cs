@@ -12,8 +12,8 @@ public class SettingsService : ISettingsService
         "settings.json");
 
     private static readonly string DefaultDirectory = Path.Combine(
-        AppContext.BaseDirectory,
-        "MD Dosyaları");
+        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        "MD Oluşturucu");
 
     private static readonly JsonSerializerOptions JsonOpts =
         new() { WriteIndented = true };
