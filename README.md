@@ -64,4 +64,4 @@ Uygulama arayüzü 6 dilde mevcuttur. Dil, kurulum sırasında sistem ayarınız
 
 ## Lisans
 
-© 2025 Mete Esperart — [OKASER](https://okaser.com)
+© 2025 [OKASER](https://okaser.com) — MIT Lisansı
