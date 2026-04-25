@@ -8,7 +8,7 @@
 
 ## ⬇️ İndir
 
-**[MDOlusturucu_v2.0_Setup.exe](https://xn--mdoluturucusu-mtc.okaser.com:8080/downloads/MDOlusturucu_v2.0_Setup.exe)**  
+**[MDOlusturucu_v2.1_Setup.exe](https://xn--mdoluturucusu-mtc.okaser.com:8080/downloads/MDOlusturucu_v2.1_Setup.exe)**  
 Windows 10/11 (x64) · .NET 8 dahil · Kurulum gerektirir
 
 ---

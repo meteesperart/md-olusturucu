@@ -1,5 +1,8 @@
 # Değişiklik Geçmişi
 
+## [2.1] — 2026-04-24
+- HTML'e Çevir: dışa aktarılan dosya sol panele eklendi (seçim korunur)
+
 ## [2.0] — 2026-04-24
 - HTML dosyası desteği: sol panelde .html dosyaları listelenir, seçilir ve düzenlenir
 - HTML editöründe gerçek zamanlı önizleme (tema uyumlu, koyu/açık)

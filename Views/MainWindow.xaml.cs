@@ -473,6 +473,24 @@ public partial class MainWindow : Window
             var html = GenerateExportHtml(_vm.SelectedFile.Content, _vm.IsDarkTheme);
             File.WriteAllText(dlg.FileName, html, Encoding.UTF8);
             _vm.StatusMessage = $"{L.Get("export_success")} {Path.GetFileName(dlg.FileName)}";
+
+            var exportDir   = Path.GetDirectoryName(dlg.FileName) ?? "";
+            var markdownDir = _settingsService.Current.MarkdownDirectory;
+            if (!string.IsNullOrEmpty(exportDir) &&
+                string.Equals(Path.GetFullPath(exportDir), Path.GetFullPath(markdownDir), StringComparison.OrdinalIgnoreCase) &&
+                !_vm.Files.Any(f => string.Equals(f.Path, dlg.FileName, StringComparison.OrdinalIgnoreCase)))
+            {
+                var newModel = new FileModel
+                {
+                    Name    = Path.GetFileName(dlg.FileName),
+                    Path    = dlg.FileName,
+                    Content = html
+                };
+                var insertIndex = _vm.Files
+                    .TakeWhile(f => string.Compare(f.Name, newModel.Name, StringComparison.OrdinalIgnoreCase) < 0)
+                    .Count();
+                _vm.Files.Insert(insertIndex, newModel);
+            }
         }
         catch (Exception ex)
         {
