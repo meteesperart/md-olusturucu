@@ -13,6 +13,7 @@
     <sys:String x:Key="toolbar_preview_on">⊡ Önizleme</sys:String>
     <sys:String x:Key="toolbar_preview_off">⊞ Önizleme</sys:String>
     <sys:String x:Key="toolbar_about">Hakkında</sys:String>
+    <sys:String x:Key="toolbar_new_html">＋ HTML</sys:String>
 
     <!-- Araç ipuçları -->
     <sys:String x:Key="tooltip_new">Yeni dosya (Ctrl+N)</sys:String>
@@ -51,6 +52,14 @@
     <sys:String x:Key="status_unsaved">kaydedilmemiş değişiklikler</sys:String>
     <sys:String x:Key="status_saved">kaydedildi</sys:String>
     <sys:String x:Key="status_new_file">Yeni Dosya</sys:String>
+
+    <!-- Editör bağlam menüsü -->
+    <sys:String x:Key="menu_cut">Kes</sys:String>
+    <sys:String x:Key="menu_copy">Kopyala</sys:String>
+    <sys:String x:Key="menu_paste">Yapıştır</sys:String>
+    <sys:String x:Key="menu_select_all">Tümünü Seç</sys:String>
+    <sys:String x:Key="menu_undo">Geri Al</sys:String>
+    <sys:String x:Key="menu_redo">Yeniden Yap</sys:String>
 
     <!-- Dosya diyalogları -->
     <sys:String x:Key="dialog_filter_md">Markdown Dosyaları (*.md)|*.md|Tüm Dosyalar (*.*)|*.*</sys:String>

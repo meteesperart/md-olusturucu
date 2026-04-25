@@ -12,4 +12,7 @@ public partial class FileModel : ObservableObject
 
     [ObservableProperty]
     private string _content = string.Empty;
+
+    public bool IsHtml => System.IO.Path.GetExtension(Path)
+        .Equals(".html", StringComparison.OrdinalIgnoreCase);
 }

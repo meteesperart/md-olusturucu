@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:local="clr-namespace:MDOlusturucu.Views"
         mc:Ignorable="d"
         Title="MD Oluşturucu"
         Icon="/Resources/app.ico"
@@ -71,11 +72,113 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="HtmlToolbarButtonStyle" TargetType="Button">
+            <Setter Property="Background"      Value="{DynamicResource ButtonBackground}"/>
+            <Setter Property="Foreground"      Value="{DynamicResource PrimaryText}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding"         Value="8,3"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="FontSize"        Value="12"/>
+            <Setter Property="MinWidth"        Value="28"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource ButtonHoverBackground}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <local:BoolToHiddenConverter x:Key="BoolToHidden"/>
+
+        <!-- Editör bağlam menüsü stilleri -->
+        <Style x:Key="EditorContextMenuStyle" TargetType="ContextMenu">
+            <Setter Property="Background"      Value="{DynamicResource SidebarBackground}"/>
+            <Setter Property="BorderBrush"     Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding"         Value="3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ContextMenu">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="14" ShadowDepth="4" Opacity="0.28" Direction="270"/>
+                            </Border.Effect>
+                            <ItemsPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="EditorMenuItemStyle" TargetType="MenuItem">
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding"    Value="12,5"/>
+            <Setter Property="FontSize"   Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                Margin="2,1"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter ContentSource="Header"
+                                              RecognizesAccessKey="True"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="Bd" Property="Background"
+                                        Value="{DynamicResource ListItemHover}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.35"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="EditorMenuSeparatorStyle" TargetType="Separator">
+            <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="Height"     Value="1"/>
+            <Setter Property="Margin"     Value="8,3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Separator">
+                        <Border Height="1"
+                                Background="{TemplateBinding Background}"
+                                Margin="{TemplateBinding Margin}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
+            <RowDefinition Height="36"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="26"/>
         </Grid.RowDefinitions>
@@ -90,6 +193,11 @@
                         Style="{StaticResource ToolbarButtonStyle}"
                         Command="{Binding NewFileCommand}"
                         ToolTip="{DynamicResource tooltip_new}"
+                        Margin="0,0,6,0"/>
+                <Button Content="{DynamicResource toolbar_new_html}"
+                        Style="{StaticResource ToolbarButtonStyle}"
+                        Command="{Binding NewHtmlFileCommand}"
+                        ToolTip="Yeni HTML dosyası"
                         Margin="0,0,6,0"/>
                 <Button Content="{DynamicResource toolbar_open}"
                         Style="{StaticResource ToolbarButtonStyle}"
@@ -127,7 +235,7 @@
 
                 <Button Content="{DynamicResource toolbar_export_html}"
                         Style="{StaticResource ToolbarButtonStyle}"
-                        IsEnabled="{Binding HasSelectedFile}"
+                        IsEnabled="{Binding CanExportHtml}"
                         Click="ExportHtmlButton_Click"
                         Margin="0,0,6,0"/>
 
@@ -144,8 +252,76 @@
             </StackPanel>
         </Border>
 
+        <!-- HTML biçimlendirme araç çubuğu (yalnızca HTML dosyası seçiliyken görünür) -->
+        <Border Grid.Row="1"
+                Background="{DynamicResource TitleBarBackground}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0,0,0,1"
+                Visibility="{Binding IsHtmlFileSelected, Converter={StaticResource BoolToHidden}}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="8,4">
+                <Button Content="B" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        FontWeight="Bold" ToolTip="Kalın &lt;b&gt;"
+                        Click="HtmlBold_Click" Margin="0,0,3,0"/>
+                <Button Content="I" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        FontStyle="Italic" ToolTip="İtalik &lt;i&gt;"
+                        Click="HtmlItalic_Click" Margin="0,0,3,0"/>
+                <Button Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Altı çizili &lt;u&gt;"
+                        Click="HtmlUnderline_Click" Margin="0,0,3,0">
+                    <TextBlock TextDecorations="Underline">U</TextBlock>
+                </Button>
+                <Button Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Üzeri çizili &lt;s&gt;"
+                        Click="HtmlStrike_Click" Margin="0,0,3,0">
+                    <TextBlock TextDecorations="Strikethrough">S</TextBlock>
+                </Button>
+
+                <Separator Width="1" Height="20" Background="{DynamicResource BorderColor}" Margin="4,0"/>
+
+                <Button Content="H1" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        FontWeight="Bold" ToolTip="Başlık 1 &lt;h1&gt;"
+                        Click="HtmlH1_Click" Margin="3,0,3,0"/>
+                <Button Content="H2" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        FontWeight="Bold" ToolTip="Başlık 2 &lt;h2&gt;"
+                        Click="HtmlH2_Click" Margin="0,0,3,0"/>
+                <Button Content="H3" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        FontWeight="Bold" ToolTip="Başlık 3 &lt;h3&gt;"
+                        Click="HtmlH3_Click" Margin="0,0,3,0"/>
+                <Button Content="P" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Paragraf &lt;p&gt;"
+                        Click="HtmlP_Click" Margin="0,0,3,0"/>
+
+                <Separator Width="1" Height="20" Background="{DynamicResource BorderColor}" Margin="4,0"/>
+
+                <Button Content="code" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        FontFamily="Cascadia Code, Consolas" ToolTip="Satır içi kod &lt;code&gt;"
+                        Click="HtmlCode_Click" Margin="3,0,3,0"/>
+                <Button Content="pre" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        FontFamily="Cascadia Code, Consolas" ToolTip="Kod bloğu &lt;pre&gt;"
+                        Click="HtmlPre_Click" Margin="0,0,3,0"/>
+
+                <Separator Width="1" Height="20" Background="{DynamicResource BorderColor}" Margin="4,0"/>
+
+                <Button Content="a" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Bağlantı &lt;a href=&quot;&quot;&gt;"
+                        Click="HtmlLink_Click" Margin="3,0,3,0"/>
+                <Button Content="img" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Görsel &lt;img src=&quot;&quot;&gt;"
+                        Click="HtmlImg_Click" Margin="0,0,3,0"/>
+                <Button Content="hr" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Yatay çizgi &lt;hr&gt;"
+                        Click="HtmlHr_Click" Margin="0,0,3,0"/>
+                <Button Content="ul" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Sırasız liste &lt;ul&gt;&lt;li&gt;"
+                        Click="HtmlUl_Click" Margin="0,0,3,0"/>
+                <Button Content="ol" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Numaralı liste &lt;ol&gt;&lt;li&gt;"
+                        Click="HtmlOl_Click" Margin="0,0,0,0"/>
+            </StackPanel>
+        </Border>
+
         <!-- Ana içerik -->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220" MinWidth="150" MaxWidth="400"/>
                 <ColumnDefinition Width="5"/>
@@ -252,7 +428,38 @@
                         WordWrap="True"
                         FontSize="14"
                         BorderThickness="0"
-                        Padding="12"/>
+                        Padding="12">
+                        <avalon:TextEditor.ContextMenu>
+                            <ContextMenu Style="{StaticResource EditorContextMenuStyle}"
+                                         Opened="EditorContextMenu_Opened">
+                                <MenuItem x:Name="CtxCut"
+                                          Header="{DynamicResource menu_cut}"
+                                          Style="{StaticResource EditorMenuItemStyle}"
+                                          Click="EditorContextCut_Click"/>
+                                <MenuItem x:Name="CtxCopy"
+                                          Header="{DynamicResource menu_copy}"
+                                          Style="{StaticResource EditorMenuItemStyle}"
+                                          Click="EditorContextCopy_Click"/>
+                                <MenuItem x:Name="CtxPaste"
+                                          Header="{DynamicResource menu_paste}"
+                                          Style="{StaticResource EditorMenuItemStyle}"
+                                          Click="EditorContextPaste_Click"/>
+                                <Separator Style="{StaticResource EditorMenuSeparatorStyle}"/>
+                                <MenuItem Header="{DynamicResource menu_select_all}"
+                                          Style="{StaticResource EditorMenuItemStyle}"
+                                          Click="EditorContextSelectAll_Click"/>
+                                <Separator Style="{StaticResource EditorMenuSeparatorStyle}"/>
+                                <MenuItem x:Name="CtxUndo"
+                                          Header="{DynamicResource menu_undo}"
+                                          Style="{StaticResource EditorMenuItemStyle}"
+                                          Click="EditorContextUndo_Click"/>
+                                <MenuItem x:Name="CtxRedo"
+                                          Header="{DynamicResource menu_redo}"
+                                          Style="{StaticResource EditorMenuItemStyle}"
+                                          Click="EditorContextRedo_Click"/>
+                            </ContextMenu>
+                        </avalon:TextEditor.ContextMenu>
+                    </avalon:TextEditor>
 
                     <!-- GridSplitter editör/önizleme -->
                     <GridSplitter x:Name="EditorPreviewSplitter"
@@ -301,7 +508,7 @@
         </Grid>
 
         <!-- Durum çubuğu -->
-        <Border Grid.Row="2"
+        <Border Grid.Row="3"
                 Background="{DynamicResource TitleBarBackground}"
                 BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="0,1,0,0">

@@ -13,6 +13,7 @@
     <sys:String x:Key="toolbar_preview_on">⊡ Preview</sys:String>
     <sys:String x:Key="toolbar_preview_off">⊞ Preview</sys:String>
     <sys:String x:Key="toolbar_about">About</sys:String>
+    <sys:String x:Key="toolbar_new_html">＋ HTML</sys:String>
 
     <!-- Tooltips -->
     <sys:String x:Key="tooltip_new">New file (Ctrl+N)</sys:String>
@@ -51,6 +52,14 @@
     <sys:String x:Key="status_unsaved">unsaved changes</sys:String>
     <sys:String x:Key="status_saved">saved</sys:String>
     <sys:String x:Key="status_new_file">New File</sys:String>
+
+    <!-- Editor context menu -->
+    <sys:String x:Key="menu_cut">Cut</sys:String>
+    <sys:String x:Key="menu_copy">Copy</sys:String>
+    <sys:String x:Key="menu_paste">Paste</sys:String>
+    <sys:String x:Key="menu_select_all">Select All</sys:String>
+    <sys:String x:Key="menu_undo">Undo</sys:String>
+    <sys:String x:Key="menu_redo">Redo</sys:String>
 
     <!-- File dialogs -->
     <sys:String x:Key="dialog_filter_md">Markdown Files (*.md)|*.md|All Files (*.*)|*.*</sys:String>

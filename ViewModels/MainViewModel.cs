@@ -17,6 +17,8 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasSelectedFile))]
+    [NotifyPropertyChangedFor(nameof(IsHtmlFileSelected))]
+    [NotifyPropertyChangedFor(nameof(CanExportHtml))]
     private FileModel? _selectedFile;
 
     [ObservableProperty]
@@ -31,7 +33,9 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string _editorFontColor = "";
 
-    public bool HasSelectedFile => SelectedFile is not null;
+    public bool HasSelectedFile    => SelectedFile is not null;
+    public bool IsHtmlFileSelected => SelectedFile?.IsHtml ?? false;
+    public bool CanExportHtml      => HasSelectedFile && !IsHtmlFileSelected;
 
     public event Action?         OpenFileRequested;
     public event Action?         OpenSettingsRequested;
@@ -96,6 +100,26 @@ public partial class MainViewModel : ObservableObject
         _fileService.Write(model);
         Files.Add(model);
         SelectedFile = model;
+        BeginRenameRequested?.Invoke(model);
+    }
+
+    [RelayCommand]
+    private void NewHtmlFile()
+    {
+        var dir = _settingsService.Current.MarkdownDirectory;
+        Directory.CreateDirectory(dir);
+        var name  = $"Yeni HTML {Files.Count + 1}.html";
+        var path  = Path.Combine(dir, name);
+        var model = new FileModel
+        {
+            Name    = name,
+            Path    = path,
+            Content = "<!DOCTYPE html>\n<html lang=\"tr\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Başlık</title>\n</head>\n<body>\n  <h1>Başlık</h1>\n  <p>İçerik buraya...</p>\n</body>\n</html>"
+        };
+        _fileService.Write(model);
+        Files.Add(model);
+        SelectedFile = model;
+        StatusMessage = path;
         BeginRenameRequested?.Invoke(model);
     }
 

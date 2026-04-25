@@ -1,5 +1,15 @@
 # Değişiklik Geçmişi
 
+## [2.0] — 2026-04-24
+- HTML dosyası desteği: sol panelde .html dosyaları listelenir, seçilir ve düzenlenir
+- HTML editöründe gerçek zamanlı önizleme (tema uyumlu, koyu/açık)
+- HTML format araç çubuğu: B / I / U / S / H1 / H2 / H3 / P / code / pre / a / img / hr / ul / ol
+- Özel HtmlColorizer: etiket adları, öznitelik adları ve değerleri Catppuccin renk paleti ile vurgulanır
+- Sağ tık bağlam menüsü: Kes / Kopyala / Yapıştır / Tümünü Seç / Geri Al / Yeniden Yap (tema uyumlu)
+- Hakkında penceresine Sürüm Geçmişi bölümü eklendi
+- Dosya seçiminde sol panel titremesi giderildi (HTML araç çubuğu sabit yükseklik)
+- Telif hakkı güncellendi: © 2026 OKASER
+
 ## [1.4] — 2026-04-24
 - Uygulama ikonu arka planı transparan yapıldı (kare görünüm giderildi)
 - Varsayılan MD dosyaları dizini Program Files'dan Documents\MD Oluşturucu'ya taşındı (UAC sorunu giderildi)
