@@ -21,6 +21,7 @@ using WpfFontFamily = System.Windows.Media.FontFamily;
 using WpfColorConv  = System.Windows.Media.ColorConverter;
 using Win32Open     = Microsoft.Win32.OpenFileDialog;
 using WpfApp        = System.Windows.Application;
+using WpfCommands   = System.Windows.Input.ApplicationCommands;
 
 namespace MDOlusturucu.Views;
 
@@ -58,6 +59,7 @@ public partial class MainWindow : Window
     private readonly DispatcherTimer  _saveTimer;
     private FileModel?   _subscribedFile;
     private bool         _isPreviewVisible = true;
+    private bool         _isHtmlMode       = false;
     private GridLength   _savedPreviewWidth = new GridLength(1, GridUnitType.Star);
 
     private static readonly MarkdownPipeline Pipeline = new MarkdownPipelineBuilder()
@@ -101,6 +103,8 @@ public partial class MainWindow : Window
         if (_subscribedFile is not null)
             _subscribedFile.PropertyChanged += OnSelectedFilePropertyChanged;
 
+        SwitchEditorMode(_vm.SelectedFile);
+
         EditorBox.Text = _vm.SelectedFile?.Content ?? string.Empty;
         EditorBox.TextChanged += OnEditorTextChanged;
 
@@ -113,6 +117,7 @@ public partial class MainWindow : Window
     // --- Syntax highlighting ---
 
     private MarkdownColorizer? _colorizer;
+    private HtmlColorizer?     _htmlColorizer;
 
     public void DisableHighlighting()
     {
@@ -131,6 +136,123 @@ public partial class MainWindow : Window
         _colorizer = new MarkdownColorizer(dark);
         EditorBox.TextArea.TextView.LineTransformers.Add(_colorizer);
     }
+
+    // --- HTML / Markdown mod geçişi ---
+
+    private void SwitchEditorMode(FileModel? file)
+    {
+        bool isHtml = file?.IsHtml ?? false;
+        if (isHtml == _isHtmlMode) return;
+        _isHtmlMode = isHtml;
+
+        if (isHtml)
+        {
+            DisableHighlighting();
+            EditorBox.SyntaxHighlighting = null;
+            LoadHtmlColorizer(_vm.IsDarkTheme);
+            _saveTimer.Interval = TimeSpan.FromMilliseconds(5000);
+        }
+        else
+        {
+            RemoveHtmlColorizer();
+            LoadHighlighting(_vm.IsDarkTheme);
+            _saveTimer.Interval = TimeSpan.FromMilliseconds(1500);
+        }
+    }
+
+    private void LoadHtmlColorizer(bool dark)
+    {
+        RemoveHtmlColorizer();
+        _htmlColorizer = new HtmlColorizer(dark);
+        EditorBox.TextArea.TextView.LineTransformers.Add(_htmlColorizer);
+    }
+
+    private void RemoveHtmlColorizer()
+    {
+        if (_htmlColorizer != null)
+        {
+            EditorBox.TextArea.TextView.LineTransformers.Remove(_htmlColorizer);
+            _htmlColorizer = null;
+        }
+    }
+
+    // --- HTML araç çubuğu: metin sarma yardımcıları ---
+
+    private void InsertOrWrapTag(string open, string close)
+    {
+        var selection = EditorBox.TextArea.Selection;
+        if (!selection.IsEmpty)
+        {
+            var selected = EditorBox.SelectedText;
+            EditorBox.SelectedText = open + selected + close;
+        }
+        else
+        {
+            var offset = EditorBox.CaretOffset;
+            EditorBox.Document.Insert(offset, open + close);
+            EditorBox.CaretOffset = offset + open.Length;
+        }
+        EditorBox.Focus();
+    }
+
+    private void WrapCurrentLine(string open, string close)
+    {
+        var line     = EditorBox.Document.GetLineByOffset(EditorBox.CaretOffset);
+        var lineText = EditorBox.Document.GetText(line.Offset, line.Length);
+        EditorBox.Document.Replace(line.Offset, line.Length, open + lineText + close);
+        EditorBox.Focus();
+    }
+
+    private void InsertAtCursor(string text)
+    {
+        var offset = EditorBox.CaretOffset;
+        EditorBox.Document.Insert(offset, text);
+        EditorBox.CaretOffset = offset + text.Length;
+        EditorBox.Focus();
+    }
+
+    // --- Editör bağlam menüsü ---
+
+    private void EditorContextMenu_Opened(object sender, RoutedEventArgs e)
+    {
+        bool hasSelection = !EditorBox.TextArea.Selection.IsEmpty;
+        CtxCut.IsEnabled   = hasSelection;
+        CtxCopy.IsEnabled  = hasSelection;
+        CtxPaste.IsEnabled = System.Windows.Clipboard.ContainsText();
+        CtxUndo.IsEnabled  = EditorBox.CanUndo;
+        CtxRedo.IsEnabled  = EditorBox.CanRedo;
+    }
+
+    private void EditorContextCut_Click(object sender, RoutedEventArgs e)
+        => WpfCommands.Cut.Execute(null, EditorBox.TextArea);
+    private void EditorContextCopy_Click(object sender, RoutedEventArgs e)
+        => WpfCommands.Copy.Execute(null, EditorBox.TextArea);
+    private void EditorContextPaste_Click(object sender, RoutedEventArgs e)
+        => WpfCommands.Paste.Execute(null, EditorBox.TextArea);
+    private void EditorContextSelectAll_Click(object sender, RoutedEventArgs e)
+        => WpfCommands.SelectAll.Execute(null, EditorBox.TextArea);
+    private void EditorContextUndo_Click(object sender, RoutedEventArgs e)
+        => EditorBox.Undo();
+    private void EditorContextRedo_Click(object sender, RoutedEventArgs e)
+        => EditorBox.Redo();
+
+    // --- HTML araç çubuğu tıklama işleyicileri ---
+
+    private void HtmlBold_Click(object sender, RoutedEventArgs e)      => InsertOrWrapTag("<b>", "</b>");
+    private void HtmlItalic_Click(object sender, RoutedEventArgs e)    => InsertOrWrapTag("<i>", "</i>");
+    private void HtmlUnderline_Click(object sender, RoutedEventArgs e) => InsertOrWrapTag("<u>", "</u>");
+    private void HtmlStrike_Click(object sender, RoutedEventArgs e)    => InsertOrWrapTag("<s>", "</s>");
+    private void HtmlH1_Click(object sender, RoutedEventArgs e)        => WrapCurrentLine("<h1>", "</h1>");
+    private void HtmlH2_Click(object sender, RoutedEventArgs e)        => WrapCurrentLine("<h2>", "</h2>");
+    private void HtmlH3_Click(object sender, RoutedEventArgs e)        => WrapCurrentLine("<h3>", "</h3>");
+    private void HtmlP_Click(object sender, RoutedEventArgs e)         => WrapCurrentLine("<p>", "</p>");
+    private void HtmlCode_Click(object sender, RoutedEventArgs e)      => InsertOrWrapTag("<code>", "</code>");
+    private void HtmlPre_Click(object sender, RoutedEventArgs e)       => InsertOrWrapTag("<pre>", "</pre>");
+    private void HtmlLink_Click(object sender, RoutedEventArgs e)      => InsertOrWrapTag("<a href=\"\">", "</a>");
+    private void HtmlImg_Click(object sender, RoutedEventArgs e)       => InsertAtCursor("<img src=\"\" alt=\"\">");
+    private void HtmlHr_Click(object sender, RoutedEventArgs e)        => InsertAtCursor("\n<hr>\n");
+    private void HtmlUl_Click(object sender, RoutedEventArgs e)        => InsertAtCursor("<ul>\n  <li></li>\n</ul>");
+    private void HtmlOl_Click(object sender, RoutedEventArgs e)        => InsertAtCursor("<ol>\n  <li></li>\n</ol>");
 
     // --- Editör ayarları ---
 
@@ -203,6 +325,7 @@ public partial class MainWindow : Window
                 EditorBox.TextChanged += OnEditorTextChanged;
 
                 _saveTimer.Stop();
+                SwitchEditorMode(_vm.SelectedFile);
                 RefreshPreview();
                 break;
 
@@ -229,14 +352,60 @@ public partial class MainWindow : Window
         }
     }
 
-    // --- Markdown önizleme ---
+    // --- Önizleme ---
 
     private void RefreshPreview()
     {
-        var content = _vm.SelectedFile?.Content ?? string.Empty;
-        var html    = GeneratePreviewHtml(content, _vm.IsDarkTheme);
-        try { PreviewBrowser.NavigateToString(html); }
+        try
+        {
+            if (_vm.SelectedFile?.IsHtml == true)
+            {
+                var raw  = _vm.SelectedFile.Content;
+                var html = PrepareHtmlForPreview(
+                    string.IsNullOrWhiteSpace(raw) ? "<html><body></body></html>" : raw,
+                    _vm.IsDarkTheme);
+                PreviewBrowser.NavigateToString(html);
+            }
+            else
+            {
+                var content = _vm.SelectedFile?.Content ?? string.Empty;
+                var html    = GeneratePreviewHtml(content, _vm.IsDarkTheme);
+                PreviewBrowser.NavigateToString(html);
+            }
+        }
         catch { }
+    }
+
+    private static string PrepareHtmlForPreview(string htmlContent, bool isDark)
+    {
+        var (bg, fg) = isDark
+            ? ("#1E1E2E", "#CDD6F4")
+            : ("#FFFFFF", "#4C4F69");
+
+        // IE=11 compat meta + base tema CSS (kullanıcının kendi stilleri sonra gelirse onlar kazanır)
+        var inject = $"<meta http-equiv=\"X-UA-Compatible\" content=\"IE=11\">" +
+                     $"<style>html,body{{background:{bg};color:{fg};" +
+                     $"font-family:'Segoe UI',system-ui,sans-serif}}</style>";
+
+        int headOpen = htmlContent.IndexOf("<head>", StringComparison.OrdinalIgnoreCase);
+        if (headOpen >= 0)
+        {
+            int insertAt = headOpen + 6; // "<head>".Length
+            return htmlContent[..insertAt] + inject + htmlContent[insertAt..];
+        }
+
+        int htmlOpen = htmlContent.IndexOf("<html", StringComparison.OrdinalIgnoreCase);
+        if (htmlOpen >= 0)
+        {
+            int tagEnd = htmlContent.IndexOf('>', htmlOpen);
+            if (tagEnd >= 0)
+            {
+                int insertAt = tagEnd + 1;
+                return htmlContent[..insertAt] + $"<head>{inject}</head>" + htmlContent[insertAt..];
+            }
+        }
+
+        return $"<html><head>{inject}</head><body>{htmlContent}</body></html>";
     }
 
     private static string GeneratePreviewHtml(string markdown, bool isDark)
@@ -366,7 +535,7 @@ public partial class MainWindow : Window
 
     private void AboutButton_Click(object sender, RoutedEventArgs e)
     {
-        var about = new AboutWindow { Owner = this };
+        var about = new AboutWindow(_vm.IsDarkTheme) { Owner = this };
         about.ShowDialog();
     }
 
@@ -481,13 +650,12 @@ public partial class MainWindow : Window
         _settingsService.SaveSilent(s);
     }
 
-    // --- Tema (yalnızca tema sözlüğünü değiştirir, dil sözlüğünü korur) ---
+    // --- Tema ---
 
     private void ApplyTheme(bool dark)
     {
         var dict = WpfApp.Current.Resources.MergedDictionaries;
 
-        // Sadece tema sözlüklerini kaldır (Languages/ veya diğerleri korunur)
         for (int i = dict.Count - 1; i >= 0; i--)
         {
             var src = dict[i].Source?.OriginalString ?? "";
@@ -504,7 +672,11 @@ public partial class MainWindow : Window
             ? new WpfSolidBrush(WpfColor.FromRgb(0x1E, 0x1E, 0x2E))
             : new WpfSolidBrush(WpfColor.FromRgb(0xFF, 0xFF, 0xFF));
 
-        LoadHighlighting(dark);
+        if (_isHtmlMode)
+            LoadHtmlColorizer(dark);
+        else
+            LoadHighlighting(dark);
+
         ApplyTitleBarColors();
     }
 
@@ -544,7 +716,7 @@ public partial class MainWindow : Window
     {
         var dialog = new Win32Open
         {
-            Filter = L.Get("dialog_filter_md"),
+            Filter = "Desteklenen Dosyalar (*.md;*.html)|*.md;*.html|Markdown (*.md)|*.md|HTML (*.html)|*.html",
             Title  = L.Get("dialog_title_open")
         };
         if (dialog.ShowDialog() == true)

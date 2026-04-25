@@ -14,12 +14,12 @@
     <Company>OKASER</Company>
     <Product>MD Oluşturucu</Product>
     <Authors>Mete Esperart</Authors>
-    <Copyright>© 2025 Mete Esperart</Copyright>
+    <Copyright>© 2026 OKASER</Copyright>
     <Description>Markdown editörü ve HTML dışa aktarıcı</Description>
-    <AssemblyVersion>1.4.0.0</AssemblyVersion>
-    <FileVersion>1.4.0.0</FileVersion>
-    <Version>1.4.0</Version>
-    <InformationalVersion>1.4</InformationalVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
+    <InformationalVersion>2.0</InformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +31,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\MarkdownHighlightingDark.xshd"/>
     <EmbeddedResource Include="Resources\MarkdownHighlightingLight.xshd"/>
+    <EmbeddedResource Include="CHANGELOG.md"/>
     <Resource Include="Resources\app.ico"/>
     <Resource Include="Languages\Strings.tr.xaml"/>
     <Resource Include="Languages\Strings.en.xaml"/>

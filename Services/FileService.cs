@@ -10,7 +10,10 @@ public class FileService : IFileService
         if (!Directory.Exists(directory))
             return Enumerable.Empty<FileModel>();
 
-        return Directory.GetFiles(directory, "*.md")
+        return Directory.GetFiles(directory)
+            .Where(p => p.EndsWith(".md",   StringComparison.OrdinalIgnoreCase) ||
+                        p.EndsWith(".html", StringComparison.OrdinalIgnoreCase))
+            .OrderBy(p => p)
             .Select(path => new FileModel
             {
                 Name = Path.GetFileName(path),
@@ -31,6 +34,9 @@ public class FileService : IFileService
 
     public void Write(FileModel file)
     {
+        var dir = Path.GetDirectoryName(file.Path);
+        if (!string.IsNullOrWhiteSpace(dir))
+            Directory.CreateDirectory(dir);
         File.WriteAllText(file.Path, file.Content);
     }
 
@@ -68,8 +74,8 @@ public class FileService : IFileService
     {
         newName = newName.Trim();
         if (string.IsNullOrWhiteSpace(newName)) return;
-        if (!newName.EndsWith(".md", StringComparison.OrdinalIgnoreCase))
-            newName += ".md";
+        if (!Path.HasExtension(newName))
+            newName += Path.GetExtension(file.Path);
 
         var dir     = Path.GetDirectoryName(file.Path)!;
         var newPath = Path.Combine(dir, newName);

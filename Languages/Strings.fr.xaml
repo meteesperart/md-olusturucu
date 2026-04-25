@@ -13,6 +13,7 @@
     <sys:String x:Key="toolbar_preview_on">⊡ Aperçu</sys:String>
     <sys:String x:Key="toolbar_preview_off">⊞ Aperçu</sys:String>
     <sys:String x:Key="toolbar_about">À propos</sys:String>
+    <sys:String x:Key="toolbar_new_html">＋ HTML</sys:String>
 
     <!-- Info-bulles -->
     <sys:String x:Key="tooltip_new">Nouveau fichier (Ctrl+N)</sys:String>
@@ -51,6 +52,14 @@
     <sys:String x:Key="status_unsaved">modifications non enregistrées</sys:String>
     <sys:String x:Key="status_saved">enregistré</sys:String>
     <sys:String x:Key="status_new_file">Nouveau Fichier</sys:String>
+
+    <!-- Menu contextuel de l'éditeur -->
+    <sys:String x:Key="menu_cut">Couper</sys:String>
+    <sys:String x:Key="menu_copy">Copier</sys:String>
+    <sys:String x:Key="menu_paste">Coller</sys:String>
+    <sys:String x:Key="menu_select_all">Tout sélectionner</sys:String>
+    <sys:String x:Key="menu_undo">Annuler</sys:String>
+    <sys:String x:Key="menu_redo">Rétablir</sys:String>
 
     <!-- Dialogues de fichier -->
     <sys:String x:Key="dialog_filter_md">Fichiers Markdown (*.md)|*.md|Tous les fichiers (*.*)|*.*</sys:String>

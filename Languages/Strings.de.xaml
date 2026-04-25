@@ -13,6 +13,7 @@
     <sys:String x:Key="toolbar_preview_on">⊡ Vorschau</sys:String>
     <sys:String x:Key="toolbar_preview_off">⊞ Vorschau</sys:String>
     <sys:String x:Key="toolbar_about">Über</sys:String>
+    <sys:String x:Key="toolbar_new_html">＋ HTML</sys:String>
 
     <!-- QuickInfos -->
     <sys:String x:Key="tooltip_new">Neue Datei (Ctrl+N)</sys:String>
@@ -51,6 +52,14 @@
     <sys:String x:Key="status_unsaved">nicht gespeicherte Änderungen</sys:String>
     <sys:String x:Key="status_saved">gespeichert</sys:String>
     <sys:String x:Key="status_new_file">Neue Datei</sys:String>
+
+    <!-- Editor-Kontextmenü -->
+    <sys:String x:Key="menu_cut">Ausschneiden</sys:String>
+    <sys:String x:Key="menu_copy">Kopieren</sys:String>
+    <sys:String x:Key="menu_paste">Einfügen</sys:String>
+    <sys:String x:Key="menu_select_all">Alles auswählen</sys:String>
+    <sys:String x:Key="menu_undo">Rückgängig</sys:String>
+    <sys:String x:Key="menu_redo">Wiederholen</sys:String>
 
     <!-- Dateidialoge -->
     <sys:String x:Key="dialog_filter_md">Markdown-Dateien (*.md)|*.md|Alle Dateien (*.*)|*.*</sys:String>

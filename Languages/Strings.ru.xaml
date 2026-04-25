@@ -13,6 +13,7 @@
     <sys:String x:Key="toolbar_preview_on">⊡ Просмотр</sys:String>
     <sys:String x:Key="toolbar_preview_off">⊞ Просмотр</sys:String>
     <sys:String x:Key="toolbar_about">О программе</sys:String>
+    <sys:String x:Key="toolbar_new_html">＋ HTML</sys:String>
 
     <!-- Подсказки -->
     <sys:String x:Key="tooltip_new">Новый файл (Ctrl+N)</sys:String>
@@ -51,6 +52,14 @@
     <sys:String x:Key="status_unsaved">несохранённые изменения</sys:String>
     <sys:String x:Key="status_saved">сохранено</sys:String>
     <sys:String x:Key="status_new_file">Новый Файл</sys:String>
+
+    <!-- Контекстное меню редактора -->
+    <sys:String x:Key="menu_cut">Вырезать</sys:String>
+    <sys:String x:Key="menu_copy">Копировать</sys:String>
+    <sys:String x:Key="menu_paste">Вставить</sys:String>
+    <sys:String x:Key="menu_select_all">Выделить всё</sys:String>
+    <sys:String x:Key="menu_undo">Отменить</sys:String>
+    <sys:String x:Key="menu_redo">Повторить</sys:String>
 
     <!-- Диалоги файлов -->
     <sys:String x:Key="dialog_filter_md">Файлы Markdown (*.md)|*.md|Все файлы (*.*)|*.*</sys:String>
