@@ -176,7 +176,7 @@ public partial class MainWindow : Window
         }
     }
 
-    // --- HTML araç çubuğu: metin sarma yardımcıları ---
+    // --- MD / HTML araç çubuğu: metin sarma yardımcıları ---
 
     private void InsertOrWrapTag(string open, string close)
     {
@@ -208,6 +208,40 @@ public partial class MainWindow : Window
         var offset = EditorBox.CaretOffset;
         EditorBox.Document.Insert(offset, text);
         EditorBox.CaretOffset = offset + text.Length;
+        EditorBox.Focus();
+    }
+
+    private void PrependCurrentLine(string prefix)
+    {
+        var line = EditorBox.Document.GetLineByOffset(EditorBox.CaretOffset);
+        EditorBox.Document.Insert(line.Offset, prefix);
+        EditorBox.Focus();
+    }
+
+    // --- MD araç çubuğu tıklama işleyicileri ---
+
+    private void MdH1_Click(object sender, RoutedEventArgs e)          => PrependCurrentLine("# ");
+    private void MdH2_Click(object sender, RoutedEventArgs e)          => PrependCurrentLine("## ");
+    private void MdH3_Click(object sender, RoutedEventArgs e)          => PrependCurrentLine("### ");
+    private void MdBold_Click(object sender, RoutedEventArgs e)        => InsertOrWrapTag("**", "**");
+    private void MdItalic_Click(object sender, RoutedEventArgs e)      => InsertOrWrapTag("_", "_");
+    private void MdStrike_Click(object sender, RoutedEventArgs e)      => InsertOrWrapTag("~~", "~~");
+    private void MdBulletList_Click(object sender, RoutedEventArgs e)  => InsertAtCursor("- ");
+    private void MdOrderedList_Click(object sender, RoutedEventArgs e) => InsertAtCursor("1. ");
+    private void MdLink_Click(object sender, RoutedEventArgs e)        => InsertOrWrapTag("[", "](url)");
+    private void MdImage_Click(object sender, RoutedEventArgs e)       => InsertOrWrapTag("![", "](url)");
+    private void MdCode_Click(object sender, RoutedEventArgs e)        => InsertOrWrapTag("`", "`");
+    private void MdBlockquote_Click(object sender, RoutedEventArgs e)  => InsertAtCursor("> ");
+    private void MdHr_Click(object sender, RoutedEventArgs e)          => InsertAtCursor("\n---\n");
+    private void MdTable_Click(object sender, RoutedEventArgs e)       =>
+        InsertAtCursor("| Sütun 1 | Sütun 2 | Sütun 3 |\n| --- | --- | --- |\n| Hücre | Hücre | Hücre |");
+
+    private void MdCodeBlock_Click(object sender, RoutedEventArgs e)
+    {
+        var offset = EditorBox.CaretOffset;
+        var block  = "```\n\n```";
+        EditorBox.Document.Insert(offset, block);
+        EditorBox.CaretOffset = offset + 4; // imleci ```\n sonrasına konumla
         EditorBox.Focus();
     }
 

@@ -179,6 +179,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition Height="36"/>
+            <RowDefinition Height="36"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="26"/>
         </Grid.RowDefinitions>
@@ -252,8 +253,86 @@
             </StackPanel>
         </Border>
 
-        <!-- HTML biçimlendirme araç çubuğu (yalnızca HTML dosyası seçiliyken görünür) -->
+        <!-- MD biçimlendirme araç çubuğu (yalnızca MD dosyası seçiliyken görünür) -->
         <Border Grid.Row="1"
+                Background="{DynamicResource TitleBarBackground}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0,0,0,1"
+                Visibility="{Binding IsMdFileSelected, Converter={StaticResource BoolToHidden}}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="8,4">
+                <Button Content="H1" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        FontWeight="Bold" ToolTip="Başlık 1 (# )"
+                        Click="MdH1_Click" Margin="0,0,3,0"/>
+                <Button Content="H2" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        FontWeight="Bold" ToolTip="Başlık 2 (## )"
+                        Click="MdH2_Click" Margin="0,0,3,0"/>
+                <Button Content="H3" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        FontWeight="Bold" ToolTip="Başlık 3 (### )"
+                        Click="MdH3_Click" Margin="0,0,3,0"/>
+
+                <Separator Width="1" Height="20" Background="{DynamicResource BorderColor}" Margin="4,0"/>
+
+                <Button Content="B" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        FontWeight="Bold" ToolTip="Kalın (**metin**)"
+                        Click="MdBold_Click" Margin="3,0,3,0"/>
+                <Button Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="İtalik (_metin_)"
+                        Click="MdItalic_Click" Margin="0,0,3,0">
+                    <TextBlock FontStyle="Italic">I</TextBlock>
+                </Button>
+                <Button Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Üzeri çizili (~~metin~~)"
+                        Click="MdStrike_Click" Margin="0,0,3,0">
+                    <TextBlock TextDecorations="Strikethrough">S</TextBlock>
+                </Button>
+
+                <Separator Width="1" Height="20" Background="{DynamicResource BorderColor}" Margin="4,0"/>
+
+                <Button Content="−" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Madde listesi (- öğe)"
+                        Click="MdBulletList_Click" Margin="3,0,3,0"/>
+                <Button Content="1." Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Numaralı liste (1. öğe)"
+                        Click="MdOrderedList_Click" Margin="0,0,3,0"/>
+
+                <Separator Width="1" Height="20" Background="{DynamicResource BorderColor}" Margin="4,0"/>
+
+                <Button Content="[a]" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Bağlantı [metin](url)"
+                        Click="MdLink_Click" Margin="3,0,3,0"/>
+                <Button Content="![a]" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Resim ![alt](url)"
+                        Click="MdImage_Click" Margin="0,0,3,0"/>
+
+                <Separator Width="1" Height="20" Background="{DynamicResource BorderColor}" Margin="4,0"/>
+
+                <Button Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Satır içi kod (`kod`)"
+                        Click="MdCode_Click" Margin="3,0,3,0">
+                    <TextBlock FontFamily="Cascadia Code, Consolas">`c`</TextBlock>
+                </Button>
+                <Button Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Kod bloğu (```kod```)"
+                        Click="MdCodeBlock_Click" Margin="0,0,3,0">
+                    <TextBlock FontFamily="Cascadia Code, Consolas">```</TextBlock>
+                </Button>
+
+                <Separator Width="1" Height="20" Background="{DynamicResource BorderColor}" Margin="4,0"/>
+
+                <Button Content="&gt;" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Alıntı (&gt; metin)"
+                        Click="MdBlockquote_Click" Margin="3,0,3,0"/>
+                <Button Content="—" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Yatay çizgi (---)"
+                        Click="MdHr_Click" Margin="0,0,3,0"/>
+                <Button Content="⊞" Style="{StaticResource HtmlToolbarButtonStyle}"
+                        ToolTip="Tablo ekle"
+                        Click="MdTable_Click" Margin="0,0,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- HTML biçimlendirme araç çubuğu (yalnızca HTML dosyası seçiliyken görünür) -->
+        <Border Grid.Row="2"
                 Background="{DynamicResource TitleBarBackground}"
                 BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="0,0,0,1"
@@ -321,7 +400,7 @@
         </Border>
 
         <!-- Ana içerik -->
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220" MinWidth="150" MaxWidth="400"/>
                 <ColumnDefinition Width="5"/>
@@ -508,7 +587,7 @@
         </Grid>
 
         <!-- Durum çubuğu -->
-        <Border Grid.Row="3"
+        <Border Grid.Row="4"
                 Background="{DynamicResource TitleBarBackground}"
                 BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="0,1,0,0">

@@ -18,6 +18,7 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasSelectedFile))]
     [NotifyPropertyChangedFor(nameof(IsHtmlFileSelected))]
+    [NotifyPropertyChangedFor(nameof(IsMdFileSelected))]
     [NotifyPropertyChangedFor(nameof(CanExportHtml))]
     private FileModel? _selectedFile;
 
@@ -35,6 +36,7 @@ public partial class MainViewModel : ObservableObject
 
     public bool HasSelectedFile    => SelectedFile is not null;
     public bool IsHtmlFileSelected => SelectedFile?.IsHtml ?? false;
+    public bool IsMdFileSelected   => HasSelectedFile && !IsHtmlFileSelected;
     public bool CanExportHtml      => HasSelectedFile && !IsHtmlFileSelected;
 
     public event Action?         OpenFileRequested;
