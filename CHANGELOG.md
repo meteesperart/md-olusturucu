@@ -1,5 +1,9 @@
 # Değişiklik Geçmişi
 
+## [2.2] — 2026-05-17
+- MD biçimlendirme araç çubuğu eklendi: H1 / H2 / H3 / Kalın / İtalik / Üzeri Çizili / Madde Listesi / Numaralı Liste / Bağlantı / Resim / Kod / Kod Bloğu / Alıntı / Yatay Çizgi / Tablo — yalnızca MD dosyası açıkken görünür
+- Hakkında penceresine OKASER logosu eklendi
+
 ## [2.1] — 2026-04-24
 - HTML'e Çevir: dışa aktarılan dosya sol panele eklendi (seçim korunur)
 
