@@ -620,23 +620,26 @@ public partial class MainWindow : Window
         var itemStyle = (Style)FindResource("EditorMenuItemStyle");
         var sepStyle  = (Style)FindResource("EditorMenuSeparatorStyle");
 
-        var copy = new System.Windows.Controls.MenuItem { Header = L.Get("menu_copy"), Style = itemStyle };
-        copy.Click += (_, _) =>
+        System.Windows.Controls.MenuItem Item(string key, string cmd)
         {
-            try { PreviewBrowser.InvokeScript("eval", new object[] { "document.execCommand('copy')" }); } catch { }
-        };
+            var mi = new System.Windows.Controls.MenuItem { Header = L.Get(key), Style = itemStyle };
+            mi.Click += (_, _) =>
+            {
+                try { PreviewBrowser.InvokeScript("eval", new object[] { $"document.execCommand('{cmd}')" }); } catch { }
+            };
+            return mi;
+        }
+        System.Windows.Controls.Separator Sep() =>
+            new System.Windows.Controls.Separator { Style = sepStyle };
 
-        var sep = new System.Windows.Controls.Separator { Style = sepStyle };
-
-        var selAll = new System.Windows.Controls.MenuItem { Header = L.Get("menu_select_all"), Style = itemStyle };
-        selAll.Click += (_, _) =>
-        {
-            try { PreviewBrowser.InvokeScript("eval", new object[] { "document.execCommand('selectAll')" }); } catch { }
-        };
-
-        _previewContextMenu.Items.Add(copy);
-        _previewContextMenu.Items.Add(sep);
-        _previewContextMenu.Items.Add(selAll);
+        _previewContextMenu.Items.Add(Item("menu_cut",        "cut"));
+        _previewContextMenu.Items.Add(Item("menu_copy",       "copy"));
+        _previewContextMenu.Items.Add(Item("menu_paste",      "paste"));
+        _previewContextMenu.Items.Add(Sep());
+        _previewContextMenu.Items.Add(Item("menu_select_all", "selectAll"));
+        _previewContextMenu.Items.Add(Sep());
+        _previewContextMenu.Items.Add(Item("menu_undo",       "undo"));
+        _previewContextMenu.Items.Add(Item("menu_redo",       "redo"));
     }
 
     // --- Başlık çubuğu ikon sürükleme → masaüstü kısayolu ---
