@@ -467,7 +467,7 @@ public partial class MainWindow : Window
         sb.Append($"h1{{font-size:2em;border-bottom:1px solid {headBorder};padding-bottom:.3em}}");
         sb.Append($"h2{{font-size:1.5em;border-bottom:1px solid {headBorder};padding-bottom:.2em}}");
         sb.Append("p{margin:.7em 0}");
-        sb.Append($"a{{color:{linkColor};text-decoration:none}}a:hover{{text-decoration:underline}}");
+        sb.Append($"a,a:link,a:visited{{color:{linkColor}!important;text-decoration:none}}a:hover{{text-decoration:underline}}");
         sb.Append($"code{{background:{codeBg};padding:.15em .4em;border-radius:4px;font-family:'Cascadia Code',Consolas,monospace;font-size:.88em}}");
         sb.Append($"pre{{background:{codeBg};padding:1em;border-radius:8px;overflow-x:auto;margin:.8em 0}}pre code{{background:none;padding:0}}");
         sb.Append($"blockquote{{border-left:3px solid {borderColor};margin:.8em 0;padding:.4em 1em;opacity:.85}}");
