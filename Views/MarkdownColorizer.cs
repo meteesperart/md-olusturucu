@@ -26,7 +26,7 @@ public class MarkdownColorizer : DocumentColorizingTransformer
     private WpfBrush BIBrush    => B(_dark ? 0xFAB387 : 0xFE640B);
     private WpfBrush StrikeBrush => B(_dark ? 0x585B70 : 0x9CA0B0);
     private WpfBrush CodeBrush  => B(_dark ? 0xA6E3A1 : 0x40A02B);
-    private WpfBrush LinkBrush  => B(_dark ? 0x89DCEB : 0x1E66F5);
+    private WpfBrush LinkBrush  => B(_dark ? 0x89B4FA : 0x1E66F5);
     private WpfBrush ImageBrush => B(_dark ? 0xCBA6F7 : 0x8839EF);
     private WpfBrush QuoteBrush => B(_dark ? 0x9399B2 : 0x7C7F93);
     private WpfBrush HRuleBrush => B(_dark ? 0x45475A : 0xBCC0CC);

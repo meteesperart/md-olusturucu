@@ -61,6 +61,7 @@ public partial class MainWindow : Window
     private bool         _isPreviewVisible = true;
     private bool         _isHtmlMode       = false;
     private GridLength   _savedPreviewWidth = new GridLength(1, GridUnitType.Star);
+    private System.Windows.Controls.ContextMenu? _previewContextMenu;
 
     private static readonly MarkdownPipeline Pipeline = new MarkdownPipelineBuilder()
         .UseAdvancedExtensions()
@@ -108,6 +109,7 @@ public partial class MainWindow : Window
         EditorBox.Text = _vm.SelectedFile?.Content ?? string.Empty;
         EditorBox.TextChanged += OnEditorTextChanged;
 
+        PreviewBrowser.ObjectForScripting = new PreviewScriptHost(this);
         RefreshPreview();
 
         if (!_settingsService.Current.IsPreviewVisible)
@@ -425,7 +427,7 @@ public partial class MainWindow : Window
         if (headOpen >= 0)
         {
             int insertAt = headOpen + 6; // "<head>".Length
-            return htmlContent[..insertAt] + inject + htmlContent[insertAt..];
+            return InjectContextMenuScript(htmlContent[..insertAt] + inject + htmlContent[insertAt..]);
         }
 
         int htmlOpen = htmlContent.IndexOf("<html", StringComparison.OrdinalIgnoreCase);
@@ -435,11 +437,18 @@ public partial class MainWindow : Window
             if (tagEnd >= 0)
             {
                 int insertAt = tagEnd + 1;
-                return htmlContent[..insertAt] + $"<head>{inject}</head>" + htmlContent[insertAt..];
+                return InjectContextMenuScript(htmlContent[..insertAt] + $"<head>{inject}</head>" + htmlContent[insertAt..]);
             }
         }
 
-        return $"<html><head>{inject}</head><body>{htmlContent}</body></html>";
+        return InjectContextMenuScript($"<html><head>{inject}</head><body>{htmlContent}</body></html>");
+    }
+
+    private static string InjectContextMenuScript(string html)
+    {
+        const string script = "<script>document.addEventListener('contextmenu',function(e){e.preventDefault();try{window.external.ShowContextMenu();}catch(ex){}},true);</script>";
+        int idx = html.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
+        return idx >= 0 ? html[..idx] + script + html[idx..] : html + script;
     }
 
     private static string GeneratePreviewHtml(string markdown, bool isDark)
@@ -470,6 +479,7 @@ public partial class MainWindow : Window
         sb.Append($"::-webkit-scrollbar{{width:8px;height:8px}}::-webkit-scrollbar-track{{background:{scrollTrack}}}::-webkit-scrollbar-thumb{{background:{scrollThumb};border-radius:4px}}");
         sb.Append("</style></head><body>");
         sb.Append(body);
+        sb.Append("<script>document.addEventListener('contextmenu',function(e){e.preventDefault();try{window.external.ShowContextMenu();}catch(ex){}},true);</script>");
         sb.Append("</body></html>");
         return sb.ToString();
     }
@@ -589,6 +599,44 @@ public partial class MainWindow : Window
     {
         var about = new AboutWindow(_vm.IsDarkTheme) { Owner = this };
         about.ShowDialog();
+    }
+
+    // --- Önizleme sağ tık menüsü ---
+
+    public void ShowPreviewContextMenu()
+    {
+        if (_previewContextMenu is null)
+            BuildPreviewContextMenu();
+        _previewContextMenu!.Placement = System.Windows.Controls.Primitives.PlacementMode.MousePoint;
+        _previewContextMenu!.IsOpen    = true;
+    }
+
+    private void BuildPreviewContextMenu()
+    {
+        _previewContextMenu = new System.Windows.Controls.ContextMenu
+        {
+            Style = (Style)FindResource("EditorContextMenuStyle")
+        };
+        var itemStyle = (Style)FindResource("EditorMenuItemStyle");
+        var sepStyle  = (Style)FindResource("EditorMenuSeparatorStyle");
+
+        var copy = new System.Windows.Controls.MenuItem { Header = L.Get("menu_copy"), Style = itemStyle };
+        copy.Click += (_, _) =>
+        {
+            try { PreviewBrowser.InvokeScript("eval", new object[] { "document.execCommand('copy')" }); } catch { }
+        };
+
+        var sep = new System.Windows.Controls.Separator { Style = sepStyle };
+
+        var selAll = new System.Windows.Controls.MenuItem { Header = L.Get("menu_select_all"), Style = itemStyle };
+        selAll.Click += (_, _) =>
+        {
+            try { PreviewBrowser.InvokeScript("eval", new object[] { "document.execCommand('selectAll')" }); } catch { }
+        };
+
+        _previewContextMenu.Items.Add(copy);
+        _previewContextMenu.Items.Add(sep);
+        _previewContextMenu.Items.Add(selAll);
     }
 
     // --- Başlık çubuğu ikon sürükleme → masaüstü kısayolu ---
@@ -894,4 +942,13 @@ public partial class MainWindow : Window
         }
         return null;
     }
+}
+
+[ComVisible(true)]
+public sealed class PreviewScriptHost
+{
+    private readonly MainWindow _w;
+    public PreviewScriptHost(MainWindow w) => _w = w;
+    public void ShowContextMenu() =>
+        _w.Dispatcher.BeginInvoke((Action)_w.ShowPreviewContextMenu);
 }
