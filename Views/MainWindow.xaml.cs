@@ -632,14 +632,11 @@ public partial class MainWindow : Window
         System.Windows.Controls.Separator Sep() =>
             new System.Windows.Controls.Separator { Style = sepStyle };
 
-        _previewContextMenu.Items.Add(Item("menu_cut",        "cut"));
         _previewContextMenu.Items.Add(Item("menu_copy",       "copy"));
-        _previewContextMenu.Items.Add(Item("menu_paste",      "paste"));
-        _previewContextMenu.Items.Add(Sep());
-        _previewContextMenu.Items.Add(Item("menu_select_all", "selectAll"));
         _previewContextMenu.Items.Add(Sep());
         _previewContextMenu.Items.Add(Item("menu_undo",       "undo"));
-        _previewContextMenu.Items.Add(Item("menu_redo",       "redo"));
+        _previewContextMenu.Items.Add(Sep());
+        _previewContextMenu.Items.Add(Item("menu_select_all", "selectAll"));
     }
 
     // --- Başlık çubuğu ikon sürükleme → masaüstü kısayolu ---
