@@ -109,6 +109,8 @@ public partial class MainWindow : Window
         EditorBox.Text = _vm.SelectedFile?.Content ?? string.Empty;
         EditorBox.TextChanged += OnEditorTextChanged;
 
+        EditorBox.Options.EnableHyperlinks      = false;
+        EditorBox.Options.EnableEmailHyperlinks = false;
         PreviewBrowser.ObjectForScripting = new PreviewScriptHost(this);
         RefreshPreview();
 
@@ -456,7 +458,7 @@ public partial class MainWindow : Window
         var body = Markdown.ToHtml(markdown, Pipeline);
 
         var (bg, fg, codeBg, linkColor, borderColor, headBorder, scrollTrack, scrollThumb) = isDark
-            ? ("#1E1E2E", "#CDD6F4", "#313244", "#89B4FA", "#45475A", "#585B70", "#181825", "#45475A")
+            ? ("#1E1E2E", "#CDD6F4", "#313244", "#89DCEB", "#45475A", "#585B70", "#181825", "#45475A")
             : ("#FFFFFF",  "#4C4F69", "#EFF1F5", "#1E66F5", "#BCC0CC", "#ACB0BE", "#E6E9EF", "#ACB0BE");
 
         var sb = new StringBuilder();
