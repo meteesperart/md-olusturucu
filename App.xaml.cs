@@ -53,6 +53,20 @@ public partial class App : System.Windows.Application
             var vm     = new MainViewModel(fileService, settingsService);
             var window = new MainWindow(vm, settingsService);
             window.Show();
+
+            // Dosya çift tıklama / "Birlikte Aç" ile başlatıldıysa dosyayı içe aktar
+            if (e.Args.Length > 0)
+            {
+                var filePath = e.Args[0].Trim('"');
+                if (System.IO.File.Exists(filePath) &&
+                    (filePath.EndsWith(".md",   StringComparison.OrdinalIgnoreCase) ||
+                     filePath.EndsWith(".html", StringComparison.OrdinalIgnoreCase)))
+                {
+                    window.Dispatcher.BeginInvoke(
+                        System.Windows.Threading.DispatcherPriority.Loaded,
+                        () => vm.ImportFileCommand.Execute(filePath));
+                }
+            }
         }
         catch (Exception ex)
         {

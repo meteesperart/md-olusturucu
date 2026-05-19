@@ -1,9 +1,9 @@
 #define MyAppName      "MD Oluşturucu"
-#define MyAppVersion   "2.2"
+#define MyAppVersion   "2.3"
 #define MyAppPublisher "OKASER"
 #define MyAppCompany   "OKASER"
 #define MyAppExeName   "MDOlusturucu.exe"
-#define SourceDir      "publish\v2.2"
+#define SourceDir      "publish\v2.3"
 #define DemoDir        "Demo"
 
 [Setup]
@@ -15,7 +15,7 @@ AppPublisherURL=https://okaser.com
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputDir=publish\installer
-OutputBaseFilename=MDOlusturucu_v2.2_Setup
+OutputBaseFilename=MDOlusturucu_v2.3_Setup
 SetupIconFile=Resources\app.ico
 Compression=lzma2
 SolidCompression=yes
@@ -35,7 +35,9 @@ Name: "spanish";  MessagesFile: "compiler:Languages\Spanish.isl"
 Name: "russian";  MessagesFile: "compiler:Languages\Russian.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}:"
+Name: "desktopicon";    Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}:"
+Name: "fileassoc_md";   Description: ".md dosyalarını MD Oluşturucu ile aç (varsayılan uygulama)"; GroupDescription: "Dosya İlişkilendirmeleri:"
+Name: "fileassoc_html"; Description: ".html dosyaları için MD Oluşturucu'yu seçeneklere ekle"; GroupDescription: "Dosya İlişkilendirmeleri:"; Flags: unchecked
 
 [Files]
 ; Ana uygulama ve WPF native bağımlılıkları
@@ -55,6 +57,20 @@ Source: "{#DemoDir}\Örnek Belge.md";      DestDir: "{userdocs}\MD Oluşturucu";
 Name: "{group}\{#MyAppName}";              Filename: "{app}\{#MyAppExeName}"
 Name: "{group}\{#MyAppName}'ı Kaldır";    Filename: "{uninstallexe}"
 Name: "{autodesktop}\{#MyAppName}";        Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+
+[Registry]
+; --- .md dosyası → varsayılan uygulama ---
+Root: HKCR; Subkey: ".md";                                 ValueType: string; ValueName: ""; ValueData: "MDOlusturucu.md"; Flags: uninsdeletevalue;  Tasks: fileassoc_md
+Root: HKCR; Subkey: "MDOlusturucu.md";                    ValueType: string; ValueName: ""; ValueData: "Markdown Dosyası"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "MDOlusturucu.md\DefaultIcon";        ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "MDOlusturucu.md\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletekey
+
+; --- .html dosyası → yalnızca "Birlikte Aç" listesine ekle (tarayıcı varsayılan kalır) ---
+Root: HKCR; Subkey: "Applications\{#MyAppExeName}";                        ValueType: string; ValueName: "FriendlyAppName"; ValueData: "{#MyAppName}"; Flags: uninsdeletekey; Tasks: fileassoc_html
+Root: HKCR; Subkey: "Applications\{#MyAppExeName}\SupportedTypes";         ValueType: string; ValueName: ".html"; ValueData: ""; Flags: uninsdeletekey; Tasks: fileassoc_html
+Root: HKCR; Subkey: "Applications\{#MyAppExeName}\SupportedTypes";         ValueType: string; ValueName: ".md";   ValueData: ""; Flags: uninsdeletekey; Tasks: fileassoc_html
+Root: HKCR; Subkey: "Applications\{#MyAppExeName}\shell\open\command";     ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletekey; Tasks: fileassoc_html
+Root: HKCR; Subkey: ".html\OpenWithList\{#MyAppExeName}";                  Flags: uninsdeletekey; Tasks: fileassoc_html
 
 [UninstallDelete]
 Type: files;      Name: "{userappdata}\MDOlusturucu\settings.json"

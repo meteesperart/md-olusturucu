@@ -1,5 +1,11 @@
 # Değişiklik Geçmişi
 
+## [2.3] — 2026-05-18
+- .md ve .html dosyalarını çift tıkla veya "Birlikte Aç" ile açma desteği eklendi
+- Dış kaynaklı dosya önce uygulama dizinine kopyalanır, ardından kopya düzenleyicide açılır
+- Kurulumda .md dosyaları için varsayılan uygulama kaydı (isteğe bağlı)
+- Kurulumda .html dosyaları için "Birlikte Aç" listesine ekleme (isteğe bağlı)
+
 ## [2.2] — 2026-05-17
 - MD biçimlendirme araç çubuğu eklendi: H1 / H2 / H3 / Kalın / İtalik / Üzeri Çizili / Madde Listesi / Numaralı Liste / Bağlantı / Resim / Kod / Kod Bloğu / Alıntı / Yatay Çizgi / Tablo — yalnızca MD dosyası açıkken görünür
 - Hakkında penceresine OKASER logosu eklendi
