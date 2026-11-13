@@ -8,7 +8,7 @@
 
 ## ⬇️ İndir
 
-**[MDOlusturucu_v2.1_Setup.exe](https://xn--mdoluturucusu-mtc.okaser.com:8080/downloads/MDOlusturucu_v2.1_Setup.exe)**  
+**[MDOlusturucu_v2.4_Setup.exe](https://xn--mdoluturucusu-mtc.okaser.com:8080/downloads/MDOlusturucu_v2.4_Setup.exe)**  
 Windows 10/11 (x64) · .NET 8 dahil · Kurulum gerektirir
 
 ---
@@ -18,6 +18,8 @@ Windows 10/11 (x64) · .NET 8 dahil · Kurulum gerektirir
 - **Markdown & HTML editörü** — Tek uygulamada hem `.md` hem `.html` dosyaları düzenleyin
 - **Gerçek zamanlı önizleme** — Markdown ve HTML çıktısını yazarken anlık görün
 - **Söz dizimi vurgulama** — AvalonEdit tabanlı, Catppuccin renk paleti (Mocha / Latte)
+- **Salt okunur görüntüleyici** — `.md` dosyasını çift tıklayınca yerinde görüntüler, kopyalamaz; dosya değişince kendiliğinden yenilenir
+- **MD format araç çubuğu** — Başlık / Kalın / İtalik / Liste / Bağlantı / Resim / Kod / Alıntı / Tablo
 - **HTML format araç çubuğu** — B / I / U / S / H1-H3 / P / code / pre / a / img / hr / ul / ol
 - **HTML dışa aktarma** — Tema uyumlu modern CSS ile tek tıkla `.html` dosyası
 - **Koyu / Açık tema** — Catppuccin Mocha & Latte
@@ -33,8 +35,8 @@ Windows 10/11 (x64) · .NET 8 dahil · Kurulum gerektirir
 
 ## Kurulum
 
-1. [Son sürümü indir](https://xn--mdoluturucusu-mtc.okaser.com:8080/downloads/MDOlusturucu_v2.0_Setup.exe)
-2. `MDOlusturucu_v2.0_Setup.exe` dosyasını çalıştırın
+1. [Son sürümü indir](https://xn--mdoluturucusu-mtc.okaser.com:8080/downloads/MDOlusturucu_v2.4_Setup.exe)
+2. `MDOlusturucu_v2.4_Setup.exe` dosyasını çalıştırın
 3. Kurulum sırasında sistem diliniz otomatik algılanır
 
 ## Kaynaktan Derleme
@@ -42,7 +44,7 @@ Windows 10/11 (x64) · .NET 8 dahil · Kurulum gerektirir
 Gereksinimler: **.NET 8 SDK**, **Inno Setup 6**
 
 ```powershell
-dotnet publish -c Release -r win-x64 --self-contained true -o publish/v2.0
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o publish/v2.4
 
 & "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe" setup.iss
 ```
