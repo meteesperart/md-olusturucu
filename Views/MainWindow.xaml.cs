@@ -453,7 +453,7 @@ public partial class MainWindow : Window
         return idx >= 0 ? html[..idx] + script + html[idx..] : html + script;
     }
 
-    private static string GeneratePreviewHtml(string markdown, bool isDark)
+    internal static string GeneratePreviewHtml(string markdown, bool isDark)
     {
         var body = Markdown.ToHtml(markdown, Pipeline);
 

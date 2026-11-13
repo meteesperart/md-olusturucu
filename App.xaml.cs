@@ -50,22 +50,27 @@ public partial class App : System.Windows.Application
             // Dil sözlüğünü yükle (App.xaml'daki tema sözlüğü zaten yüklü)
             LoadLanguageDictionary(settingsService.Current.Language);
 
+            // Dosya çift tıklama / "Birlikte Aç" ile başlatıldıysa
+            var argPath = e.Args.Length > 0 ? e.Args[0].Trim('"') : null;
+            var hasFile = argPath is not null && System.IO.File.Exists(argPath);
+
+            // .md → salt okunur görüntüleyici: dosya yerinde okunur, MD klasörüne kopyalanmaz
+            if (hasFile && argPath!.EndsWith(".md", StringComparison.OrdinalIgnoreCase))
+            {
+                new ViewerWindow(argPath, settingsService).Show();
+                return;
+            }
+
             var vm     = new MainViewModel(fileService, settingsService);
             var window = new MainWindow(vm, settingsService);
             window.Show();
 
-            // Dosya çift tıklama / "Birlikte Aç" ile başlatıldıysa dosyayı içe aktar
-            if (e.Args.Length > 0)
+            // .html → düzenleyiciye içe aktar
+            if (hasFile && argPath!.EndsWith(".html", StringComparison.OrdinalIgnoreCase))
             {
-                var filePath = e.Args[0].Trim('"');
-                if (System.IO.File.Exists(filePath) &&
-                    (filePath.EndsWith(".md",   StringComparison.OrdinalIgnoreCase) ||
-                     filePath.EndsWith(".html", StringComparison.OrdinalIgnoreCase)))
-                {
-                    window.Dispatcher.BeginInvoke(
-                        System.Windows.Threading.DispatcherPriority.Loaded,
-                        () => vm.ImportFileCommand.Execute(filePath));
-                }
+                window.Dispatcher.BeginInvoke(
+                    System.Windows.Threading.DispatcherPriority.Loaded,
+                    () => vm.ImportFileCommand.Execute(argPath));
             }
         }
         catch (Exception ex)

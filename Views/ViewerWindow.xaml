@@ -1,0 +1,73 @@
+<Window x:Class="MDOlusturucu.Views.ViewerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MD Oluşturucu"
+        Icon="/Resources/app.ico"
+        Height="760" Width="900"
+        MinHeight="300" MinWidth="400"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource WindowBackground}">
+
+    <Window.Resources>
+        <Style x:Key="ViewerButtonStyle" TargetType="Button">
+            <Setter Property="Background"       Value="{DynamicResource ButtonBackground}"/>
+            <Setter Property="Foreground"       Value="{DynamicResource PrimaryText}"/>
+            <Setter Property="BorderThickness"  Value="0"/>
+            <Setter Property="Padding"          Value="12,6"/>
+            <Setter Property="Cursor"           Value="Hand"/>
+            <Setter Property="FontSize"         Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource ButtonHoverBackground}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel>
+        <!-- Üst çubuk: dosya adı + yol, sağda düğmeler -->
+        <Border DockPanel.Dock="Top"
+                Background="{DynamicResource ToolbarBackground}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0,0,0,1"
+                Padding="12,8">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="{DynamicResource toolbar_theme}"
+                            Style="{StaticResource ViewerButtonStyle}"
+                            Click="ThemeButton_Click"
+                            Margin="12,0,6,0"/>
+                    <Button Content="{DynamicResource viewer_edit}"
+                            Style="{StaticResource ViewerButtonStyle}"
+                            ToolTip="{DynamicResource tooltip_viewer_edit}"
+                            Click="EditButton_Click"/>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock x:Name="FileNameText"
+                               Foreground="{DynamicResource PrimaryText}"
+                               FontSize="14" FontWeight="SemiBold"
+                               TextTrimming="CharacterEllipsis"/>
+                    <TextBlock x:Name="FilePathText"
+                               Foreground="{DynamicResource MutedText}"
+                               FontSize="11"
+                               TextTrimming="CharacterEllipsis"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <WebBrowser x:Name="ViewerBrowser"/>
+    </DockPanel>
+</Window>

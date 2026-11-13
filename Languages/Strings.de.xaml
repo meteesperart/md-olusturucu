@@ -86,4 +86,9 @@
     <sys:String x:Key="color_black">Schwarz</sys:String>
     <sys:String x:Key="color_dark_gray">Dunkelgrau</sys:String>
 
+    <!-- Görüntüleyici -->
+    <sys:String x:Key="viewer_edit">✎ Bearbeiten</sys:String>
+    <sys:String x:Key="tooltip_viewer_edit">Im Editor öffnen (die Datei wird in den MD-Ordner kopiert)</sys:String>
+    <sys:String x:Key="viewer_read_error">Datei konnte nicht gelesen werden</sys:String>
+
 </ResourceDictionary>

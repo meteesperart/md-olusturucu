@@ -1,5 +1,12 @@
 # Değişiklik Geçmişi
 
+## [2.4] — 2026-11-12
+- Salt okunur görüntüleyici penceresi eklendi: .md dosyası çift tıkla veya "Birlikte Aç" ile açıldığında dosya bulunduğu yerden görüntülenir, MD klasörüne kopyalanmaz
+- Görüntüleyici: dosya dışarıda değiştiğinde görünüm kendiliğinden yenilenir
+- Görüntüleyici: göreli yoldaki yerel resimler gösterilir; web bağlantıları varsayılan tarayıcıda, göreli .md bağlantıları aynı pencerede açılır
+- Görüntüleyici: Tema düğmesi ve "Düzenle" düğmesi (dosya ancak Düzenle'ye basılınca MD klasörüne içe aktarılır)
+- .html dosyaları önceki gibi düzenleyicide açılır
+
 ## [2.3] — 2026-05-18
 - .md ve .html dosyalarını çift tıkla veya "Birlikte Aç" ile açma desteği eklendi
 - Dış kaynaklı dosya önce uygulama dizinine kopyalanır, ardından kopya düzenleyicide açılır

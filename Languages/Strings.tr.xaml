@@ -86,4 +86,9 @@
     <sys:String x:Key="color_black">Siyah</sys:String>
     <sys:String x:Key="color_dark_gray">Koyu Gri</sys:String>
 
+    <!-- Görüntüleyici -->
+    <sys:String x:Key="viewer_edit">✎ Düzenle</sys:String>
+    <sys:String x:Key="tooltip_viewer_edit">Düzenleyicide aç (dosya MD klasörüne kopyalanır)</sys:String>
+    <sys:String x:Key="viewer_read_error">Dosya okunamadı</sys:String>
+
 </ResourceDictionary>
